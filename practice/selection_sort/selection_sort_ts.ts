@@ -30,26 +30,26 @@ let d = [5, 2, 4, 5, 1, 3];
 selection_sort(d);
 // console.log(d);
 
-// function selection_sort_boj(a: number[]) {
-//   let arr = a.slice(1, a.length);
-//   console.log(arr);
-//   let n = arr.length;
-//   console.log(n);
-//   for (let i = 0; i < n - 1; i++) {
-//     let min_idx = i;
+function selection_sort_boj(a: number[]) {
+  let arr = a.slice(1, a.length);
+  console.log(arr);
+  let n = arr.length;
+  console.log(n);
+  for (let i = 0; i < n - 1; i++) {
+    let min_idx = i;
 
-//     for (let j = i + 1; j < n; j++) {
-//       if (arr[j] < arr[min_idx]) {
-//         min_idx = j;
-//       }
-//     }
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[min_idx]) {
+        min_idx = j;
+      }
+    }
 
-//     [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
-//     console.log("arr: ", arr);
-//     return arr;
-//   }
-// }
+    [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
+    console.log("arr: ", arr);
+    return arr;
+  }
+}
 
-// let d_boj = [5, 2, 4, 5, 1, 3];
-// console.log();
-// selection_sort_boj(d_boj);
+let d_boj = [5, 2, 4, 5, 1, 3];
+console.log();
+selection_sort_boj(d_boj);
