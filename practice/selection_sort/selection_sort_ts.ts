@@ -27,14 +27,13 @@ function selection_sort(a: number[]) {
 let d = [5, 2, 4, 5, 1, 3];
 // d.shift();
 // let t = d.slice(1, d.length);
-selection_sort(d);
+// selection_sort(d);
 // console.log(d);
 
 function selection_sort_boj(a: number[]) {
-  let arr = a.slice(1, a.length);
-  console.log(arr);
+  //   a.shift();
+  let arr = a.slice(1);
   let n = arr.length;
-  console.log(n);
   for (let i = 0; i < n - 1; i++) {
     let min_idx = i;
 
@@ -45,11 +44,11 @@ function selection_sort_boj(a: number[]) {
     }
 
     [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
-    console.log("arr: ", arr);
-    return arr;
   }
+  return arr;
 }
 
 let d_boj = [5, 2, 4, 5, 1, 3];
-console.log();
-selection_sort_boj(d_boj);
+// d_boj.shift()
+// let t = d_boj.slice(1);
+selection_sort_boj(d_boj).forEach((item) => console.log(item));
