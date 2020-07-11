@@ -3,6 +3,9 @@
 - 선택 정렬:  
    가장 작은 것을 가장 앞으로 보내며 완성
 
+- 계산 복잡도: O(n2)  
+   아래 풀이에서 반복문 안에서 비교하는 안쪽 반복문의 변수 값 j 를 확인해보면 등차수열의 구조를 갖는다.
+
 - 문제: list 안에 있는 자료를 순서대로 배열
 - 입력: 정렬할 list
 - 출력: 순서대로 정렬된 list
@@ -47,4 +50,26 @@ def selection_sort(a) {
     a[i], a[min_idx] = a[min_idx], a[i]
 }
 
+```
+
+- ts
+
+```ts
+function selection_sort(a: number[]) {
+  let n = a.length;
+  for (let i = 0; i < n - 1; i++) {
+    let min_idx = i;
+
+    for (let j = i + 1; j < n; j++) {
+      if (a[j] < a[min_idx]) {
+        min_idx = j;
+      }
+    }
+
+    [a[i], a[min_idx]] = [a[min_idx], a[i]];
+  }
+}
+
+let d = [2, 4, 5, 1, 3];
+selection_sort(d);
 ```
