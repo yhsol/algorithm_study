@@ -30,10 +30,13 @@
 
 - 사용 기능:
 
+  - rust 전달 값: 기존에 풀 때 vec 을 썼었고, 굉장히 복잡하다고 느꼈었는데 그냥 array 의 형태로 쓰면 간단히 처리할 수 있었다.
+
   - swap:
 
     - python: a, b = b, a
     - js: [a, b] = [b, a]
+    - rust: array.swap(idx, idx)
 
   - 배열을 잘라야 할 경우(백준 알고리즘 정렬 문제 2750):
 
@@ -95,4 +98,32 @@ function selection_sort(a: number[]) {
 
 let d = [2, 4, 5, 1, 3];
 selection_sort(d);
+```
+
+```rust
+pub fn run() {
+    let mut d = [2, 4, 5, 1, 3];
+    selection_sort(&mut d);
+    println!("{:?}", d);
+}
+
+fn selection_sort(a: &mut [i64]) {
+    let n = a.len();
+
+    for i in 0..(n - 1) {
+        let mut min_idx = i;
+
+        for j in (i + 1)..n {
+            if a[min_idx] > a[j] {
+                min_idx = j
+            }
+        }
+        // swap
+        // let temp = a[min_idx];
+        // a[min_idx] = a[i];
+        // a[i] = temp;
+        a.swap(min_idx, i)
+    }
+}
+
 ```
