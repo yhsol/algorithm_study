@@ -119,3 +119,19 @@ fn insertion_sort_2(a: &mut [i64]) {
 
 
 ```
+
+- 참고:
+
+  - https://medium.com/@spyr1014/sorting-in-rust-selection-insertion-and-counting-sort-2c4d3575e364
+  - 아주 직관적이지는 않은데 근데 또 보다보면 오히려 이해가 쉽기도 하다.
+
+  ```
+    fn insertion_sort<T: Ord>(list: &mut [T]) {
+    for i in 1..list.len() {
+      for j in (1..i + 1).rev() {
+        if list[j - 1] <= list[j] { break; }
+        list.swap(j - 1, j)
+      }
+    }
+    }
+  ```
