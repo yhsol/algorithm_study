@@ -32,6 +32,31 @@
 * python
 
 ```python
+def quick_sort_py(a, left, right):
+    if (left >= right):
+        return
+
+    key = left
+    i = left + 1
+    j = right
+
+    while (i <= j):
+        while (i <= right and a[i] < a[key]):
+            i += 1
+        while (j > left and a[j] >= a[key]):
+            j -= 1
+        if (i > j):
+            a[j], a[key] = a[key], a[j]
+        else:
+            a[i], a[j] = a[j], a[i]
+
+    quick_sort_py(a, left, j - 1)
+    quick_sort_py(a, j + 1, right)
+
+
+d = [2, 9, 6, 4, 5, 7, 10, 1, 3, 8]
+quick_sort_py(d, 0, len(d) - 1)
+print(d)
 
 
 ```
@@ -141,5 +166,45 @@ console.log(d);
 - rust
 
 ```rust
+
+pub fn run() {
+    let mut d = [2, 4, 5, 8, 9, 1, 7, 10, 6, 3];
+    let n = d.len() - 1;
+    quick_sort_rs(&mut d, 0, n);
+    println!("{:?}", d);
+}
+
+// 이때 함수의 return 값을 명시하지 않는데, 이렇게해도 rust 에서 해당 값을 파악하는데, 이럴 때 명시하려면 어떻게 하는지 확인해봐도 하겠다.
+fn quick_sort_rs(a: &mut [i64], start: usize, end: usize) {
+    if start >= end {
+        return;
+    }
+
+    let key = start;
+    let mut i = start + 1;
+    let mut j = end;
+
+    while i <= j {
+        while a[i] < a[key] && i <= end {
+            i += 1;
+        }
+        while a[key] <= a[j] && j > start {
+            j -= 1;
+        }
+        println!("values of i: {}, j: {}, key: {}", a[i], a[j], a[key]);
+        if i > j {
+            println!("it change key!");
+            a.swap(key, j)
+        } else {
+            println!("it change index!");
+            a.swap(i, j)
+        }
+        println!("{:?}", a);
+    }
+
+    quick_sort_rs(a, start, j - 1);
+    quick_sort_rs(a, j + 1, end);
+}
+
 
 ```
