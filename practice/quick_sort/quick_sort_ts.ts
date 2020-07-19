@@ -34,11 +34,14 @@ function quick_sort(a: number[], start: number, end: number) {
       [a[i], a[j]] = [a[j], a[i]];
     }
   }
-
+  console.log("a: ", a);
+  console.log("start: ", start);
+  console.log("i: ", i);
+  console.log("j: ", j);
   quick_sort(a, start, j - 1);
   quick_sort(a, j + 1, end);
 }
 
-let d = [2, 4, 5, 1, 3];
+let d = [2, 9, 6, 4, 5, 7, 10, 1, 3, 8];
 quick_sort(d, 0, d.length - 1);
 console.log(d);

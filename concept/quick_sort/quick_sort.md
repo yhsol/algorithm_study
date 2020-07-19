@@ -24,32 +24,14 @@
   - start 와 end 가 엇갈릴 경우, 해당 값(엇갈리는 위치)과 기준값의 위치를 바꾼다.
   - start 와 end 를 바탕으로 하는 재귀 함수 두개를 호출한다.
 
+- 보다보니 알 것 같기도 하기는 한데 어렵다. 일단 재귀라는 개념은 늘 쓸때마다 아리송한 기분이 든다. 그래서 쉽게 재귀라는 카드를 쓰지 못하는데  
+  이에대한 개념을 한번 정리해야 할 필요가 있을 것 같기도 하다.
+
 - 사용 기능:
 
 * python
 
 ```python
-def insertion_sort(a):
-    for i in range(0, len(a)):
-        j = i
-        while j > 0 and a[j - 1] > a[j]:
-            a[j - 1], a[j] = a[j], a[j - 1]
-            j -= 1
-
-
-def insertion_sort_2(a):
-    for i in range(1, len(a)):
-        key = a[i]
-        j = i - 1
-        while j >= 0 and a[j] > key:
-            a[j+1] = a[j]
-            j -= 1
-            a[j+1] = key
-
-
-d = [2, 4, 5, 1, 3]
-insertion_sort_2(d)
-print(d)
 
 
 ```
@@ -57,84 +39,107 @@ print(d)
 - ts
 
 ```ts
-function insertion_sort(a: number[]) {
-  for (let i = 0; i < a.length; i++) {
-    let j = i;
-    while (a[j - 1] > a[j]) {
-      [a[j - 1], a[j]] = [a[j], a[j - 1]];
+function quick_sort(a: number[], start: number, end: number) {
+  // 종료 조건
+  if (start >= end) {
+    return;
+  }
+
+  let key = start;
+  let i = start + 1;
+  let j = end;
+  let temp;
+
+  while (i <= j) {
+    while (i <= end && a[i] <= a[key]) {
+      i++;
+    }
+    while (j > start && a[j] >= a[key]) {
       j--;
     }
-  }
-}
-
-function insertion_sort_2(a: number[]) {
-  for (let i = 0; i < a.length; i++) {
-    let key = a[i];
-    let j = i;
-    while (j >= 0 && a[j - 1] > key) {
-      a[j] = a[j - 1];
-      j--;
-      a[j] = key;
+    if (i > j) {
+      [a[j], a[key]] = [a[key], a[j]];
+    } else {
+      [a[i], a[j]] = [a[j], a[i]];
     }
   }
+  console.log("a: ", a);
+  console.log("start: ", start);
+  console.log("i: ", i);
+  console.log("j: ", j);
+  quick_sort(a, start, j - 1);
+  quick_sort(a, j + 1, end);
 }
 
-let d = [2, 4, 5, 1, 3];
-insertion_sort_2(d);
+let d = [2, 9, 6, 4, 5, 7, 10, 1, 3, 8];
+quick_sort(d, 0, d.length - 1);
+console.log(d);
+```
+
+- ts 다른 풀이
+
+```ts
+let partion = function (
+  a: number[],
+  left: number,
+  right: number,
+  pivotIdx: number
+) {
+  let temp;
+  let pivot = a[pivotIdx];
+  // 왼쪽의 인덱스가 오른쪽 인덱스보다 크지는 않을 때까지.
+  // 즉, 엇갈리기 전까지 반복.
+  while (left <= right) {
+    // 왼쪽값이 pivot 값보다 작은 동안에는 +1 씩 움직이며 다음값을 탐색.
+    while (a[left] < pivot) {
+      left++;
+    }
+    // 오른쪽값이 pivot 값보다 큰 동안에는 -1 씩 움직이며 다음값을 탐색.
+    while (a[right] > pivot) {
+      right--;
+    }
+    // 위의 두 while 문을 지나서 (두 while 문에 해당하지 않을 때)
+    // left, right 가 엇갈리지 않았다면 두 값을 swap.
+    if (left <= right) {
+      temp = a[left];
+      a[left] = a[right];
+      a[right] = temp;
+      left++;
+      right--;
+    }
+  }
+  // 위으 반복문을 다 통과했다는 것은 left, right 가 엇갈렸다는 것.
+  // 이 때는 엇갈린 위치와 pivot 값을 swap.
+  temp = a[left];
+  a[left] = a[pivotIdx];
+  a[pivotIdx] = temp;
+  return left;
+};
+
+let quickSort = function (a: number[], left?: number, right?: number) {
+  if (!left) left = 0;
+  if (!right) right = a.length - 1;
+  let pivotIdx = right;
+  pivotIdx = partion(a, left, right - 1, pivotIdx);
+  if (left < pivotIdx - 1) {
+    // pivotIdx 보다 왼쪽값을 계속해서 quickSort
+    quickSort(a, left, pivotIdx - 1);
+  }
+  if (pivotIdx + 1 < right) {
+    // pivotIdx 보다 오른쪽값을 계속해서 quickSort
+    quickSort(a, pivotIdx + 1, right);
+  }
+  // 양쪽을 계속해서 정렬하다가 pivotIdx 의 위치까지 도달했을 때, 정렬 완료.
+  return a;
+};
+
+let d = [2, 4, 6, 8, 9, 7, 3, 5, 1, 10];
+quickSort(d);
 console.log(d);
 ```
 
 - rust
 
 ```rust
-pub fn run() {
-    let mut d = [2, 4, 5, 1, 3];
-    insertion_sort_2(&mut d);
-    println!("{:?}", d);
-}
-
-fn insertion_sort(a: &mut [i64]) {
-    for i in 0..a.len() {
-        let mut j = i;
-        while j > 0 && a[j - 1] > a[j] {
-            println!("{}", j);
-            a.swap(j - 1, j);
-            j -= 1;
-        }
-    }
-}
-
-fn insertion_sort_2(a: &mut [i64]) {
-    for i in 1..a.len() {
-        let key = a[i];
-        let mut j = i;
-        // j-1 값이 0 보다는 커야 하므로 j > 0 이 성립한다.
-        // 해당 조건을 걸지 않으면 무한 루프에 빠진다.
-        // 아직 확실히 이해는 안됨.
-        while j > 0 && a[j - 1] > key {
-            println!("{}", j);
-            a[j] = a[j - 1];
-            j -= 1;
-            a[j] = key
-        }
-    }
-}
-
 
 ```
-
-- 참고:
-
-  - https://medium.com/@spyr1014/sorting-in-rust-selection-insertion-and-counting-sort-2c4d3575e364
-  - 아주 직관적이지는 않은데 근데 또 보다보면 오히려 이해가 쉽기도 하다.
-
-  ```
-    fn insertion_sort<T: Ord>(list: &mut [T]) {
-    for i in 1..list.len() {
-      for j in (1..i + 1).rev() {
-        if list[j - 1] <= list[j] { break; }
-        list.swap(j - 1, j)
-      }
-    }
-    }
-  ```
