@@ -13,6 +13,8 @@ fn quick_sort_rs(a: &mut [i64], start: usize, end: usize) {
     let key = start;
     let mut i = start + 1;
     let mut j = end;
+
+    // 해당 값들을 정확한 위치에서 체크하면 이해에 도움이 될 듯.
     // println!("values of key: {}, i: {}, j: {}", a[key], a[i], a[j]);
 
     while i <= j {
