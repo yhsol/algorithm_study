@@ -13,6 +13,7 @@ fn quick_sort_rs(a: &mut [i64], start: usize, end: usize) {
     let key = start;
     let mut i = start + 1;
     let mut j = end;
+    // println!("values of key: {}, i: {}, j: {}", a[key], a[i], a[j]);
 
     while i <= j {
         while a[i] < a[key] && i <= end {
@@ -21,7 +22,6 @@ fn quick_sort_rs(a: &mut [i64], start: usize, end: usize) {
         while a[key] <= a[j] && j > start {
             j -= 1;
         }
-        println!("values of i: {}, j: {}, key: {}", a[i], a[j], a[key]);
         if i > j {
             println!("it change key!");
             a.swap(key, j)
@@ -29,6 +29,7 @@ fn quick_sort_rs(a: &mut [i64], start: usize, end: usize) {
             println!("it change index!");
             a.swap(i, j)
         }
+        println!("{}", a[key]);
         println!("{:?}", a);
     }
 
