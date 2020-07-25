@@ -43,30 +43,86 @@
 * python
 
 ```python
-def quick_sort_py(a, left, right):
-    if (left >= right):
+
+def merge_sort(a):
+    n = len(a)
+    # 종료 조건
+    # 배열의 크기가 1 이하이면 정렬할 필요가 없음
+    if n <= 1:
+        return a
+
+    # 반으로 나눈 몫을 사용
+    mid = n // 2
+    # mid 값을 기준으로 두 조각으로 자료를 복사해 리스트를 만듬
+    left = merge_sort(a[:mid])
+    right = merge_sort(a[mid:])
+    result = []
+
+    # 양쪽 조각의 모두 값이 있는 동안 비교 진행
+    while left and right:
+        if left[0] < right[0]:
+            result.append(left.pop(0))
+        else:
+            result.append(right.pop(0))
+
+    # 한쪽의 정렬이 완료된 경우 다른 조각의 나머지 값을 그대로 배열에 삽입
+    while left:
+        result.append(left.pop(0))
+    while right:
+        result.append(right.pop(0))
+
+    return result
+
+
+d = [2, 4, 5, 1, 3]
+print(merge_sort(d))
+
+
+
+```
+
+```python
+def merge_sort_2(a):
+    n = len(a)
+    if n <= 1:
         return
 
-    key = left
-    i = left + 1
-    j = right
+    mid = n // 2
+    left = a[:mid]
+    right = a[mid:]
+    merge_sort_2(left)
+    merge_sort_2(right)
+    i_left = 0
+    i_right = 0
+    i_a = 0
 
-    while (i <= j):
-        while (i <= right and a[i] < a[key]):
-            i += 1
-        while (j > left and a[j] >= a[key]):
-            j -= 1
-        if (i > j):
-            a[j], a[key] = a[key], a[j]
+    # 각 조각에 값이 남아있는 동안
+    while i_left < len(left) and i_right < len(right):
+        # 각 조각의 앞자리 값을 비교해 작은 값을 결과 배열에 삽입
+        # 이동이 있었던 조각의 index 를 다음 자리로 옮기고,
+        # 결과 배열의 index 도 다음 자리로 옮긴다.
+
+        if left[i_left] < right[i_right]:
+            a[i_a] = left[i_left]
+            i_left += 1
         else:
-            a[i], a[j] = a[j], a[i]
+            a[i_a] = right[i_right]
+            i_right += 1
 
-    quick_sort_py(a, left, j - 1)
-    quick_sort_py(a, j + 1, right)
+        i_a += 1
+
+    while i_left < len(left):
+        a[i_a] = left[i_left]
+        i_left += 1
+        i_a += 1
+    while i_right < len(right):
+        a[i_a] = right[i_right]
+        i_right += 1
+        i_a += 1
 
 
-d = [2, 9, 6, 4, 5, 7, 10, 1, 3, 8]
-quick_sort_py(d, 0, len(d) - 1)
+d = [2, 4, 5, 1, 3]
+merge_sort_2(d)
 print(d)
 
 

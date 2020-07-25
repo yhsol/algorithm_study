@@ -17,7 +17,7 @@ const merge = function (left: number[], right: number[]) {
   return result;
 };
 
-const merge_sort = function (a: number[]): any {
+const merge_sort = function (a: number[]): number[] {
   if (a.length < 2) return a;
   let middle = Math.floor(a.length / 2);
   let left = a.slice(0, middle);
