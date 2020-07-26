@@ -30,9 +30,28 @@
 
 - 풀이 흐름:
 
-- 사용 기능:
+- learn:
+  - array[..index]: 배열의 슬라이스. python 의 array[:index] 와 비슷하다.
+  - array 에 값 추가 또는 삭제: 안된다. 값의 추가 또는 삭제를 하려면 vec 의 형태로 바꿔줘야한다.
+  - copy_from_slice:
 
-* python1
+```rust
+let src = [1, 2, 3, 4];
+let mut dst = [0, 0];
+
+// Because the slices have to be the same length,
+// we slice the source slice from four elements
+// to two. It will panic if we don't do this.
+dst.copy_from_slice(&src[2..]);
+
+assert_eq!(src, [1, 2, 3, 4]);
+assert_eq!(dst, [3, 4]);
+```
+
+    배열을 복사해서 담는다.
+    간편하지만 주의해야할 사항들이 있음. [copy_from_slice](https://doc.rust-lang.org/std/primitive.slice.html#method.copy_from_slice)
+
+- python1
 
 ```python
 
