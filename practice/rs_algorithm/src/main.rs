@@ -4,7 +4,9 @@
 // mod quick_sort_rs;
 // mod merge_sort_rs;
 // mod merge_Sort_rs_2;
-mod selection_sort_rs;
+// mod selection_sort_rs;
+// mod quick_sort_practice;
+mod acmicpc_2751;
 
 fn main() {
     // println!("Hello, world!");
@@ -14,5 +16,7 @@ fn main() {
     // quick_sort_rs::run();
     // merge_sort_rs::run();
     // merge_Sort_rs_2::run();
-    selection_sort_rs::run();
+    // selection_sort_rs::run();
+    // quick_sort_practice::run()
+    acmicpc_2751::run();
 }
