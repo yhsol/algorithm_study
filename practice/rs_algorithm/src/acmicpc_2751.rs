@@ -1,7 +1,32 @@
-pub fn run() {
-    let mut d = [2, 4, 5, 1, 3];
-    mergesort(&mut d);
-    println!("{:?}", d);
+use std::any::type_name;
+use std::io;
+
+fn main() {
+    let mut input = String::new();
+    match io::stdin().read_line(&mut input) {
+        Ok(n) => {}
+        Err(error) => println!("error: {}", error),
+    }
+    let trimmed = input.trim();
+    let int_input: i32 = trimmed.parse().unwrap();
+    let mut a = vec![];
+    fn type_of<T>(_: T) -> &'static str {
+        type_name::<T>()
+    }
+    for i in 0..int_input {
+        let mut input = String::new();
+        match io::stdin().read_line(&mut input) {
+            Ok(n) => {}
+            Err(error) => println!("error: {}", error),
+        }
+        let trimmed = input.trim();
+        let int_input: i32 = trimmed.parse().unwrap();
+        a.push(int_input);
+    }
+    mergesort(&mut a);
+    for i in a {
+        println!("{}", i);
+    }
 }
 
 pub fn mergesort(a: &mut [i32]) {
