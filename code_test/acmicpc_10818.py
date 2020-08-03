@@ -1,11 +1,10 @@
 N = int(input())
-nums = list(input().split(" "))
+nums = list(map(int, input().split(" ")))
 # data = list(input().split(" "))
 minvalue = 0
 maxvalue = 0
 
-for i in range(len(nums)):
-    nums[i] = int(nums[i])
+print(nums)
 
 # print(nums)
 # n = len(nums)
