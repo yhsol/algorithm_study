@@ -23,6 +23,7 @@ fn main() {
         let int_input: i32 = trimmed.parse().unwrap();
         a.push(int_input);
     }
+    println!("a: {:?}", a);
     mergesort(&mut a);
     for i in a {
         println!("{}", i);
