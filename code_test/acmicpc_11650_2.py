@@ -7,4 +7,14 @@ for _ in range(N):
 a.sort(key=lambda data: (data[0], data[1]))
 
 for [i, j] in a:
-    print("result: ", i, j)
+    print(i, j)
+
+# N = int(input())
+# a = []
+# for _ in range(N):
+#     a.append(list(map(int, input().split())))
+
+# a.sort(key=lambda data: (data[0], data[1]))
+
+# for [i, j] in a:
+#     print(i, j)
