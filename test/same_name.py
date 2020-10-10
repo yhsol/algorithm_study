@@ -23,4 +23,13 @@ def same_name(list):
     return result
 
 
-print(same_name(list))
+# print(same_name(list))
+
+def find_name(dict, n):
+    if n in dict:
+        return dict[n]
+    else:
+        return "?"
+
+
+print(find_name({39: "Justin"}, 80))
