@@ -14,4 +14,5 @@ for _ in range(N):
 
 arr.sort(key=lambda data: (len(data), get_sum(data), data))
 
-print(arr)
+for i in arr:
+    print(i)
