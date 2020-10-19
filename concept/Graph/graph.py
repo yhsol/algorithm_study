@@ -9,6 +9,8 @@
 
 # tom - jerry
 
+key = input()
+
 graph_info = {
     "summer": ["john", "justin", "mike"],
     "john": ["summer", "justin"],
@@ -56,4 +58,31 @@ def find_fr_tuple(graph, key):
                 done.add(x)
 
 
-find_fr_tuple(graph_info, "summer")
+# find_fr_tuple(graph_info, "summer")
+
+practice_graph = {
+    "1": ["2", "3"],
+    "2": ["1", "4", "5"],
+    "3": ["1"],
+    "4": ["2"],
+    "5": ["2"]
+}
+
+
+def find_practice_graph(g, key):
+    queue = []
+    done = set()
+
+    queue.append((key, 0))
+    done.add(key)
+
+    while queue:
+        (p, d) = queue.pop(0)
+        print(p, d)
+        for x in g[p]:
+            if x not in done:
+                queue.append((x, d+1))
+                done.add(x)
+
+
+find_practice_graph(practice_graph, key)
