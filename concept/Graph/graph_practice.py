@@ -25,4 +25,22 @@ def search_graph(g, key):
                 done.add(i)
 
 
-search_graph(g_dict, key)
+# search_graph(g_dict, key)
+
+def search_graph_all(g, key):
+    qu = []
+    done = set()
+
+    qu.append((key, 0))
+    done.add(key)
+
+    while qu:
+        (p, d) = qu.pop(0)
+        print(p, d)
+        for x in g[p]:
+            if x not in done:
+                qu.append((x, d + 1))
+                done.add(x)
+
+
+search_graph_all(g_dict, key)
