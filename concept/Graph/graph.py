@@ -58,7 +58,7 @@ def find_fr_tuple(graph, key):
                 done.add(x)
 
 
-# find_fr_tuple(graph_info, "summer")
+find_fr_tuple(graph_info, "summer")
 
 practice_graph = {
     "1": ["2", "3"],
@@ -85,4 +85,4 @@ def find_practice_graph(g, key):
                 done.add(x)
 
 
-find_practice_graph(practice_graph, key)
+# find_practice_graph(practice_graph, key)
