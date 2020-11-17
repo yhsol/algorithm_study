@@ -10,6 +10,8 @@ use std::io;
 // mod selection_sort_rs;
 // mod quick_sort_practice;
 // mod acmicpc_2751;
+// mod plusn;
+mod max;
 
 fn main() {
     // println!("it's main.rs!");
@@ -23,6 +25,8 @@ fn main() {
     // selection_sort_rs::run();
     // quick_sort_practice::run()
     // acmicpc_2751::run();
+    // plusn::run();
+    max::run();
 
     let mut input = String::new();
     match io::stdin().read_line(&mut input) {
