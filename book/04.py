@@ -37,8 +37,8 @@ def find_max_recursive(arr):
 
 
 def fibo(N):
-    if N == 0:
-        return 0
+    if N <= 1:
+        return N
     return fibo(N-2) + fibo(N-1)
 
 
