@@ -1,5 +1,6 @@
 def insertion_sort(a):
-    for i in range(0, len(a)):
+    n = len(a)
+    for i in range(n):
         j = i
         while j > 0 and a[j - 1] > a[j]:
             a[j - 1], a[j] = a[j], a[j - 1]
@@ -17,5 +18,5 @@ def insertion_sort_2(a):
 
 
 d = [2, 4, 5, 1, 3]
-insertion_sort_2(d)
+insertion_sort(d)
 print(d)
