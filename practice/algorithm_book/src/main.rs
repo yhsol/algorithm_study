@@ -1,5 +1,6 @@
 mod chapter_01_sum;
+mod chapter_02_max;
 
 fn main() {
-    chapter_01_sum::run()
+    chapter_02_max::run()
 }
