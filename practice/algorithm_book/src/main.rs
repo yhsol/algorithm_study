@@ -1,6 +1,6 @@
-mod chapter_01_sum;
-mod chapter_02_max;
+mod chapter_02_max_2;
 
 fn main() {
-    chapter_02_max::run()
+    println!("here is main.rs");
+    chapter_02_max_2::run();
 }
