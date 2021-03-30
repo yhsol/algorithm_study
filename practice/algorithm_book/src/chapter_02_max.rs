@@ -1,13 +1,21 @@
 use std::io;
 
 pub fn run() {
-    let mut i = String::new();
-    io::stdin().read_line(&mut i).expect("Failed to read line");
-    let i: u32 = i.trim().parse().expect("Please type a number!");
+    let mut n = String::new();
+    io::stdin().read_line(&mut n).expect("Failed to read line");
+    let n: i32 = n.trim().parse().expect("Please type a number!");
 
-    println!("i is: {}", i > 5);
+    let mut v: Vec<i32> = Vec::new();
 
-    let result = find_max_pos([1, 2, 3, 5, 4].to_vec());
+    for _ in 0..n {
+        let mut i = String::new();
+        io::stdin().read_line(&mut i).expect("Failed to read line");
+        let i = i.trim().parse::<i32>().expect("Please type a number!");
+
+        v.push(i)
+    }
+
+    let result = find_max(v);
     println!("{}", result);
 }
 
