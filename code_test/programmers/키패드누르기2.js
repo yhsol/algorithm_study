@@ -1,4 +1,4 @@
-const numberDict = {
+const numbersPos = {
   1: 1.1,
   2: 1.2,
   3: 1.3,
@@ -11,38 +11,10 @@ const numberDict = {
   0: 4.2,
 };
 
-function solution(numbers, hand) {
-  var answer = "";
-  let changedNumbers = numbers.map((item) => numberDict[item]);
-  let left_number = [numberDict[1], numberDict[4], numberDict[7]];
-  let right_number = [numberDict[3], numberDict[6], numberDict[9]];
-  let mid_number = [numberDict[2], numberDict[5], numberDict[8], numberDict[0]];
-  let where_left = 4.1;
-  let where_right = 4.3;
-
-  for (let i of changedNumbers) {
-    if (left_number.includes(i)) {
-      answer += "L";
-      where_left = i;
-    }
-    if (right_number.includes(i)) {
-      answer += "R";
-      where_right = i;
-    }
-    if (mid_number.includes(i)) {
-      const closer = fingerForMid(i, where_left, where_right, hand);
-      if (closer === "L") {
-        answer += "L";
-        where_left = i;
-      }
-      if (closer === "R") {
-        answer += "R";
-        where_right = i;
-      }
-    }
-  }
-
-  return answer;
+function splitForCalc(pos) {
+  return String(pos)
+    .split(".")
+    .map((item) => Number(item));
 }
 
 function fingerForMid(pos, left, right, hand) {
@@ -51,24 +23,47 @@ function fingerForMid(pos, left, right, hand) {
   const [rx, ry] = splitForCalc(right);
   const leftDistance = Math.abs(x - lx) + Math.abs(y - ly);
   const rightDistance = Math.abs(x - rx) + Math.abs(y - ry);
-  if (leftDistance > rightDistance) {
-    return "R";
-  }
-  if (leftDistance < rightDistance) {
-    return "L";
-  }
+
+  if (leftDistance > rightDistance) return "R";
+
+  if (leftDistance < rightDistance) return "L";
+
   if (leftDistance === rightDistance) {
-    if (hand === "left") {
-      return "L";
-    }
-    if (hand === "right") {
-      return "R";
-    }
+    if (hand === "left") return "L";
+    if (hand === "right") return "R";
   }
 }
 
-function splitForCalc(pos) {
-  return String(pos)
-    .split(".")
-    .map((item) => Number(item));
+function solution(numbers, hand) {
+  var answer = "";
+  let posNumbers = numbers.map((item) => numbersPos[item]);
+  let posLeft = [numbersPos[1], numbersPos[4], numbersPos[7]];
+  let posRight = [numbersPos[3], numbersPos[6], numbersPos[9]];
+  let posMid = [numbersPos[2], numbersPos[5], numbersPos[8], numbersPos[0]];
+  let whereLeft = 4.1;
+  let whereRight = 4.3;
+
+  for (let i of posNumbers) {
+    if (posLeft.includes(i)) {
+      answer += "L";
+      whereLeft = i;
+    }
+    if (posRight.includes(i)) {
+      answer += "R";
+      whereRight = i;
+    }
+    if (posMid.includes(i)) {
+      const closer = fingerForMid(i, whereLeft, whereRight, hand);
+      if (closer === "L") {
+        answer += "L";
+        whereLeft = i;
+      }
+      if (closer === "R") {
+        answer += "R";
+        whereRight = i;
+      }
+    }
+  }
+
+  return answer;
 }
