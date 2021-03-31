@@ -62,15 +62,9 @@ def solution(S):
                             answer += poped
 
                 else:
-                    if prec[peeked] == prec[i]:
+                    if prec[peeked] >= prec[i]:
                         poped = opStack.pop()
                         answer += poped
-                        print("poped2: ", poped)
-                        opStack.push(i)
-                    elif prec[peeked] > prec[i]:
-                        poped = opStack.pop()
-                        answer += poped
-                        print("poped3: ", poped)
                         opStack.push(i)
                     else:
                         opStack.push(i)
