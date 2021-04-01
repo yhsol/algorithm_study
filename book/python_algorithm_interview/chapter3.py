@@ -1,3 +1,6 @@
+import pprint
+
+
 def lambda_fn():
     return list(map(lambda x: x + 10, [1, 2, 3]))
 
@@ -35,14 +38,21 @@ def generator():
 
 # print('run: ', print_100_nums())
 
-g = generator()
-print(g)
-print(next(g))
-print(next(g))
-print(next(g))
+def print_generator():
+    g = generator()
+    print(g)
+    print(next(g))
+    print(next(g))
+    print(next(g))
 
-print(list(range(5)))
-print(range(5))
-print(type(range(5)))
-for i in range(5):
-    print(i, end=' ')
+
+def print_range():
+    print(list(range(5)))
+    print(range(5))
+    print(type(range(5)))
+    for i in range(5):
+        print(i, end=' ')
+
+
+def print_locals():
+    pprint.pprint(locals())
