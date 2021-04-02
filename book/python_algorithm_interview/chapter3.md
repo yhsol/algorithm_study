@@ -466,3 +466,52 @@ return [(x, y, z)
 ```
 
 ## 구글 파이썬 스타일 가이드
+
+- 가독성을 높이기 위한 지침들이 많다.
+
+  - 함수의 기본 값으로 가변 객체(Mutable Object)를 사용하지 않아야 한다.
+    함수가 객체를 수정하면(리스트에 아이템을 추가한다든지 등) 기본값이 변경되기 때문이다.
+    따라서 다음과 같이 기본값으로 []나 {}를 사용하는 것은 지양
+
+    ```
+    No: def foo(a, b=[]):
+      ...
+    No: def foo(a, b: Mapping = {}):
+    ```
+
+    대신 불변 객체(Immutable Object)를 사용.
+    Node을 명시적으로 할당하는 것도 좋은 방법
+
+    ```
+    Yes: def foo(a, b=None):
+             if b is None:
+                 b = []
+    Yes: def foo(a, b Optional[Sequence] = None):
+             if b is None:
+                 b = []
+    ```
+
+  - True, False를 판별할 때는 암시적(Implicit)인 방법을 사용하는 편이 간결하고 가독성이 높다.
+    즉 굳이 False임을 if foo != []: 같은 형태로 판별할 필요가 없다.
+    if foo:로 충분하다.
+    이외에도 몇 가지 더 정리해보면 다음과 같다.
+
+    ```
+    Yes: if not users: # not users 로 충분
+             print('no users')
+
+         if foo == 0: # 정수를 처리할 때는 암시적으로 거짓 여부를 판별하기 보다는 비교 대상이 되는 정수값을 직접 비교하는 편이 덜 위험하다.
+             self.handle_zero()
+
+         if i % 10 == 0: # i % 10 == 0로 명시적으로(Explicitly) 값을 비교하는 편이 좋다.
+             self.handle_multiple_of_ten()
+
+    No: if len(users) == 0:
+            print('no users')
+
+        if foo is None and not foo:
+            self.handle_zero()
+
+        if not i % 10:
+            self.handle_multiple_of_ten()
+    ```
