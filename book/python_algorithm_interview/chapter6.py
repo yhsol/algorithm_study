@@ -1,6 +1,8 @@
 import re
 import collections
-from typing import Deque
+from typing import Deque, List
+
+# 1. 유효한 팰린드롬
 
 
 def valid_palindrome(str: str) -> bool:
@@ -52,10 +54,36 @@ def isPalindrome_with_slicing_2(s: str) -> bool:
             strs += i.lower()
     return strs == strs[::-1]
 
+# 2. 문자열 뒤집기
+
+
+def str_reverse(str_list: list):
+    str_list.reverse()
+
+
+def str_reverse_two_pointer_hs(str_list: list):
+    for i in range(len(str_list) // 2):
+        str_list[i], str_list[-i-1] = str_list[-i-1], str_list[i]
+
+
+def str_reverse_two_pointer_book(s: List[str]) -> None:
+    left, right = 0, len(s) - 1
+    while left < right:
+        s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+    print('str_list: ', s)
+
+# 3. 로그 파일 재정렬
+
+
+def align_logs(inputs: List[str]) -> List[str]:
+    # TODO
+    return inputs
+
 
 def run():
-    print(isPalindrome_with_slicing_2('A man, a plan, a canal: Panama'))
-    print(isPalindrome_with_slicing_2('race a car'))
+    str_reverse_two_pointer_book(['h', 'e', 'l', 'l', 'o'])
 
 
 run()
