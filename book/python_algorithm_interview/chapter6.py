@@ -78,12 +78,42 @@ def str_reverse_two_pointer_book(s: List[str]) -> None:
 
 
 def align_logs(inputs: List[str]) -> List[str]:
-    # TODO
-    return inputs
+    digits = []
+    letters = []
+    for i in inputs:
+        if i.split()[1].isdigit():
+            digits.append(i)
+        else:
+            letters.append(i)
+    letters.sort(key=lambda x: (x.split()[1:], x.split()[0]))
+    log = letters + digits
+    return log
 
 
-def run():
-    str_reverse_two_pointer_book(['h', 'e', 'l', 'l', 'o'])
+def reorderLogFiles(logs: List[str]) -> List[str]:
+    letters, digits = [], []
+    for log in logs:
+        if log.split()[1].isdigit():
+            digits.append(log)
+        else:
+            letters.append(log)
+    letters.sort(key=lambda x: (x.split()[1:], x.split()[0]))
+    return letters + digits
 
 
-run()
+def reorderLogFilesFunc(logs: List[str]) -> List[str]:
+    letters, digits = [], []
+    for log in logs:
+        if log.split()[1].isdigit():
+            digits.append(log)
+        else:
+            letters.append(log)
+
+    def func(x):
+        return x.split()[1:], x.split()[0]
+
+    letters.sort(key=func)
+    return letters + digits
+
+
+print(reorderLogFilesFunc(['1 A', '2 A', '1 B', '4 C']))
