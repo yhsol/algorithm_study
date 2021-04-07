@@ -116,4 +116,24 @@ def reorderLogFilesFunc(logs: List[str]) -> List[str]:
     return letters + digits
 
 
-print(reorderLogFilesFunc(['1 A', '2 A', '1 B', '4 C']))
+def most_common_word(sentence: str, banned: List[str]) -> str:
+    words = [word for word in re.sub(r'[^\w]', ' ', sentence)
+             .lower().split()
+             if word not in banned]
+    counts = collections.Counter(words)
+    return counts.most_common(1)[0][0]
+
+
+def mostCommonWord(paragraph: str, banned: List[str]) -> str:
+    paragraph_prep = paragraph
+    for word in paragraph:
+        if word.isalnum() == False:
+            print('here', word)
+            paragraph_prep = paragraph.replace(word, " ")
+    print(paragraph_prep)
+    # for i in paragraph.lower().split():
+    #     print(i)
+
+
+print(mostCommonWord(
+    "Bob git a ball, the hit BALL flew far after it was hit.", ["hit"]))

@@ -226,3 +226,46 @@ sorted()로 정렬한 결과는 다음과 같다.
 ```
 
 그러나 람다 표현식은 코드가 길어지고 map이나 filter와 함께 섞어서 사용하기 시작하면 가독성이 매우 떨어질 수 있으므로 주의가 필요하다.
+
+4. 가장 흔한 단어
+   문제: 금지된 단어를 제외한 가장 흔하게 등장하는 단어를 출력하라. 대소문자 구분을 하지 않으며,
+   구두점(마침표, 쉼표 등) 또한 무시한다.
+   풀이1: 리스트 컴프리헨션, Counter 객체 사용
+   - 데이터 클렌징(Data Cleansing)이라 부르는 입력값에 대한 전처리(Preporcessing) 작업이 필요.
+   - 좀 더 편리하게 처리하기 위해 정규식을 섞어 쓰면 다음과 같이 처리할 수 있다.
+   ```py
+   words = [word for word in re.sub(r'[^\w]', ' ', paragraph).lower().split() if word not in banned]
+   ```
+   - 정규식에서 \w는 단어 문자(Word Character)를 뜻하며, ^은 not을 의미한다.
+     따라서 위 정규식은 단어 문자가 아닌 모든 문자를 공백으로 치환(Substitute)하는 역할
+   - 아울리 리스트 컴프리헨션의 조건절에는 banned에 포함되지 않은 단어만을 대상으로 한다.
+   - 따라서 words에는 소문자, 구두점을 제외하고 banned를 제외한 단어 목록이 저장된다.
+   - 이제 다음과 같이 각 단어의 개수를 헤아려 보자.
+     ```py
+     counts = collections.defaultdict(int)
+     for word in words:
+         counts[word] += 1
+     ```
+   - 개수를 담아두는 변수는 딕셔너리를 사용하며 defaultdict()를 사용해 int 기본 값이 자동으로 부여되게 함.
+   - 따라서 여기서는 키 존재 유무를 확인할 필요 없이 즉시 counts[word] += 1을 수행할 수 있다.  
+     ```return max(counts, key=counts.get)`
+   - 딕셔너리 변수인 counts에서 값이 가장 큰 키를 가져온다.
+     즉 수학에서 argmax와 동일하다. 그런데 파이썬의 기본 타입은 argmax를 지원하지 않는다.
+     과학 계산 라이브러리인 넘파이(NumPy)는 이를 잘 지원하지만, 아쉽게도 코딩 테스트에서는 어떠한 외부 라이브러리도 사용할 수 없다. 따라서 이처럼 max() 함수에 key를 지정해 argmax를 간접적으로 추출할 수 있다. 개수를 처리하는 부분은 Counter 모듈을 사용하면 좀 더 깔끔하게 처리할 수 있다.
+   - 다음 코드는 words에서 가장 흔하게 등장하는 단어의 첫 번째 값을 most_common(1)으로 추출한다.
+     문제의 입력값에서는 [('ball', 2)]가 되며, 이 값의 [0][0]을 추출해서 최종적으로 첫 번째 인덱스의 키를 추출하게 된다.
+     이렇게 추출한 키인 ball은 가장 흔한 단어가 되므로, 이제 이 값을 리턴한다.
+     ```py
+     counts = collections.Counter(words)
+     return counts.most_common(1)[0][0]
+     ```
+     이처럼 Counter 객체를 이용해 비교적 간단히 구현할 수 있었으며, 모두 정리하면 전체 코드는 다음과 같다.
+     ```py
+     def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+         words = [word for word in re.sub(r'[^\w]', ' ', paragraph)
+             .lower().split()
+                     if word not in banned]
+         counts = collections.Counter(words)
+         # 가장 흔하게 등장하는 단어의 첫 번째 인덱스 리턴
+         return counts.most_common(1)[0][0]
+     ```
