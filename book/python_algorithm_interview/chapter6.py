@@ -116,7 +116,7 @@ def reorderLogFilesFunc(logs: List[str]) -> List[str]:
     return letters + digits
 
 
-def most_common_word(sentence: str, banned: List[str]) -> str:
+def most_common_word1(sentence: str, banned: List[str]) -> str:
     words = []
     lowered = sentence.lower()
     for i in range(0, len(lowered)):
@@ -132,6 +132,25 @@ def most_common_word(sentence: str, banned: List[str]) -> str:
     print(lowered)
     most = collections.Counter(words).most_common(1)[0][0]
     return most
+
+
+def most_common_word2(sentence: str, banned: List[str]) -> str:
+    words = [word for word in re.sub(r'[^\w]', ' ', sentence)
+             .lower().split()
+             if word not in banned]
+    counts = collections.Counter(words)
+    return counts.most_common(1)[0][0]
+
+
+def mostCommonWord(paragraph: str, banned: List[str]) -> str:
+    paragraph_prep = paragraph
+    for word in paragraph:
+        if word.isalnum() == False:
+            print('here', word)
+            paragraph_prep = paragraph.replace(word, " ")
+    print(paragraph_prep)
+    # for i in paragraph.lower().split():
+    #     print(i)
 
 
 def group_anagram(inputs: List[str]) -> List[List[str]]:
@@ -161,4 +180,50 @@ def group_anagram(inputs: List[str]) -> List[List[str]]:
     return results_list
 
 
-print(group_anagram(["eat", "tea", "tan", "ate", "nat", "bat"]))
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    anagrams = collections.defaultdict()
+
+    for word in strs:
+        # sorted 는 정렬 후 리스트 형태로 반환
+        # -> 스트링을 정렬하고, 그게 리스트 형태로 구성되어 있음
+        # -> 다시 join()을 써서 스틑링으로 변환
+        anagrams[''.join(sorted(word))].append(word)
+    return list(anagrams.values())
+
+
+def mostLongPalindrome(data: str) -> str:
+    prep = []
+    palindromes = []
+    for i in range(len(data) - 1):
+        for j in range(i+1, len(data)):
+            if data[i] == data[j]:
+                prep.append(data[i:j+1])
+    # print(prep)
+
+    for word in prep:
+        if isPalindrome_with_slicing(word) == True:
+            palindromes.append(word)
+    # print(palindromes)
+
+    # longest = longest word in palindromes
+    longest = sorted(palindromes, key=len)
+    # print(longest[-1])
+
+    return longest[-1]
+
+# 위 함수를 코드 정리 및 개량
+# def mostLongPalindrome(data: str) -> str:
+#     palindrome = ""
+
+#     for i in range(len(data) - 1):
+#         for j in range(i+1, len(data)):
+#             if data[i] == data[j]:
+#                 sliced = data[i:j+1]
+#                 if isPalindrome_with_slicing(sliced) == True:
+#                     if len(palindrome) < len(sliced):
+#                         palindrome = sliced
+
+#     return palindrome
+
+
+print(mostLongPalindrome('abbabbba'))
