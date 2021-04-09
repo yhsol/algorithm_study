@@ -2,8 +2,8 @@ import re
 import collections
 from typing import Deque, List
 
-# 1. 유효한 팰린드롬
 
+# 1. 유효한 팰린드롬
 
 def valid_palindrome(str: str) -> bool:
     valid = ''
@@ -116,4 +116,49 @@ def reorderLogFilesFunc(logs: List[str]) -> List[str]:
     return letters + digits
 
 
-print(reorderLogFilesFunc(['1 A', '2 A', '1 B', '4 C']))
+def most_common_word(sentence: str, banned: List[str]) -> str:
+    words = []
+    lowered = sentence.lower()
+    for i in range(0, len(lowered)):
+        if lowered[i].isalpha == True:
+            print('here', lowered[i])
+            pass
+        else:
+            lowered[i] = ' '
+    print(lowered)
+    for word in lowered.split():
+        if word not in banned and word.isalnum():
+            words.append(word)
+    print(lowered)
+    most = collections.Counter(words).most_common(1)[0][0]
+    return most
+
+
+def group_anagram(inputs: List[str]) -> List[List[str]]:
+    sorted_list = []
+    valid = []
+    results_dict = {}
+    results_list = []
+    for n in inputs:
+        sorted_list.append(sorted(list(n)))
+    for n in sorted_list:
+        text = ""
+        for i in n:
+            text += i
+        valid.append(text)
+    valid.sort()
+    valid_set = set(valid)
+    for i in inputs:
+        k = "".join(sorted(list(i)))
+        for j in valid_set:
+            if k in j:
+                if j in results_dict:
+                    results_dict[j].append(i)
+                else:
+                    results_dict[j] = [i]
+    for p in results_dict:
+        results_list.append(results_dict[p])
+    return results_list
+
+
+print(group_anagram(["eat", "tea", "tan", "ate", "nat", "bat"]))
