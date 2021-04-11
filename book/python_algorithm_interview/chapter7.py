@@ -60,7 +60,7 @@ def raindrop(heights: List[int]) -> int:
                             diff = heights[i] - heights[j]
                             if heights[i] is max(heights):
                                 diff_second = heights[i] - \
-                                    sorted(heights, reverse=True)[1]
+                                    sorted(heights[i:], reverse=True)[0]
                                 diff = diff - diff_second
                             result += diff
                     else:
