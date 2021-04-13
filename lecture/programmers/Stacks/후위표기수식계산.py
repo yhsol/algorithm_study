@@ -1,3 +1,6 @@
+from stacks import ArrayStack as Stack
+
+
 class ArrayStack:
 
     def __init__(self):
@@ -53,11 +56,38 @@ def infixToPostfix(tokenList):
     opStack = ArrayStack()
     postfixList = []
 
+    for token in tokenList:
+        if type(token) is int:
+            pass
+        elif token == "(":
+            pass
+        elif token == ")":
+            pass
+        else:
+            pass
+
+    while not opStack.isEmpty():
+        pass
+
     return postfixList
 
 
 def postfixEval(tokenList):
-    pass
+    valStack = Stack()
+
+    for token in tokenList:
+        if type(token) is int:
+            pass
+        elif token == "*":
+            pass
+        elif token == "/":
+            pass
+        elif token == "+":
+            pass
+        elif token == "-":
+            pass
+
+    return valStack.pop()
 
 
 def solution(expr):
