@@ -122,4 +122,142 @@ def trap2(height: List[int]) -> int:
     return volume
 
 
-print(raindrop([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
+def sumThreeNum(nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    size = len(nums)
+    results = []
+
+    for i in range(0, size-2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        for j in range(i+1, size-1):
+            if j > i+1 and nums[j] == nums[j-1]:
+                continue
+            for k in range(j+1, size):
+                if k > j+1 and nums[k] == nums[k-1]:
+                    continue
+                if nums[i] + nums[j] + nums[k] == 0:
+                    results.append([nums[i], nums[j], nums[k]])
+    return results
+
+
+def threeSum(nums: List[int]) -> List[List[int]]:
+    results = []
+    nums.sort()
+
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        for j in range(i+1, len(nums) - 1):
+            if j > i + 1 and nums[j] == nums[j-1]:
+                continue
+            for k in range(j+1, len(nums)):
+                if k > j + 1 and nums[k] == nums[k-1]:
+                    continue
+                if nums[i] + nums[j] + nums[k] == 0:
+                    results.append([nums[i], nums[j], nums[k]])
+    return results
+
+
+def threeSumTwoPointer(nums: List[int]) -> List[List[int]]:
+    results = []
+    nums.sort()
+
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+
+        left, right = i+1, len(nums)-1
+        while left < right:
+            sum = nums[i] + nums[left] + nums[right]
+            if sum < 0:
+                left += 1
+            elif sum > 0:
+                right -= 1
+            else:
+                results.append([nums[i], nums[left], nums[right]])
+
+                # 움직일 때 중복값이 있다면 중복값이 있는 만큼 중복값은 건너뛰고 이동
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1
+                left += 1
+                right -= 1
+
+    return results
+
+
+def test(nums: List[int]) -> List[List[int]]:
+    results = []
+    nums.sort()
+
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+
+        left, right = i + 1, len(nums) - 1
+
+        while left < right:
+            sum = nums[i] + nums[left] + nums[right]
+
+            if sum < 0:
+                left += 1
+            elif sum > 0:
+                right -= 1
+            else:
+                results.append([nums[i], nums[left], nums[right]])
+
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1
+
+                left += 1
+                right -= 1
+
+    return results
+
+
+def arrayPartition(arr: List[int]) -> int:
+    arr.sort()
+    result = 0
+    for i in range(len(arr)):
+        if i % 2 != 0:
+            continue
+        else:
+            result += arr[i]
+
+    return result
+
+
+def arrayParitionBook(nums: List[int]) -> int:
+    sum = 0
+    pair = []
+    nums.sort()
+
+    for n in nums:
+        pair.append(n)
+        if len(pair) == 2:
+            sum += min(pair)
+            pair = []
+
+    return sum
+
+
+def arrayPartitionBook2(nums: List[int]) -> int:
+    sum = 0
+    nums.sort()
+
+    for i, n in enumerate(nums):
+        if i % 2 == 0:
+            sum += n
+
+    return sum
+
+
+def arrayPartitionBook3(nums: List[int]) -> int:
+    return sum(sorted(nums)[::2])
+
+
+print(arrayPartitionBook3([1, 4, 3, 2]))
