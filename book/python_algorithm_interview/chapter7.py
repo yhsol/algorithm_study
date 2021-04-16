@@ -1,3 +1,4 @@
+import sys
 from typing import List
 
 
@@ -260,4 +261,53 @@ def arrayPartitionBook3(nums: List[int]) -> int:
     return sum(sorted(nums)[::2])
 
 
-print(arrayPartitionBook3([1, 4, 3, 2]))
+def multipleOthers(nums: List[int]) -> List[int]:
+    results = []
+    for i in range(len(nums)):
+        rest = nums[:]
+        rest.pop(i)
+        mult = 1
+        for v in rest:
+            mult *= v
+        results.append(mult)
+    return results
+
+
+def productExceptSelf(nums: List[int]) -> List[int]:
+    out = []
+    p = 1
+
+    for i in range(0, len(nums)):
+        out.append(p)
+        p = p * nums[i]
+
+    p = 1
+
+    for i in range(len(nums) - 1, 0 - 1, -1):
+        out[i] = out[i] * p
+        p = p * nums[i]
+
+    return out
+
+
+def stock(nums: List[int]) -> List[int]:
+    result = 0
+    for i in range(len(nums) - 1):
+        for j in range(i+1, len(nums)):
+            if nums[j] - nums[i] > result:
+                result = nums[j] - nums[i]
+    return result
+
+
+def maxProf(prices: List[int]) -> int:
+    profit = 0
+    min_price = sys.maxsize
+
+    for price in prices:
+        min_price = min(min_price, price)
+        profit = max(profit, price - min_price)
+
+    return profit
+
+
+print(stock([7, 1, 5, 3, 6, 4]))
