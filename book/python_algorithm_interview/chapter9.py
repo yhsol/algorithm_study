@@ -15,4 +15,21 @@ def isValid(data: str) -> bool:
     return len(stack) == 0
 
 
-print(isValid('{test}{test}(test)[test]test]test'))
+def isValid2(data: str) -> bool:
+    stack = []
+    valid_dict = {
+        '(': ')',
+        '{': '}',
+        '[': ']'
+    }
+
+    for char in data:
+        if char in valid_dict:
+            stack.append(char)
+        elif not stack or char != valid_dict[stack.pop()]:
+            return False
+
+    return len(stack) == 0
+
+
+print(isValid2('{test}{test}(test)[test][test]test'))
