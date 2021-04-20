@@ -32,4 +32,11 @@ def isValid2(data: str) -> bool:
     return len(stack) == 0
 
 
-print(isValid2('{test}{test}(test)[test][test]test'))
+def uniqueOrder(data: str) -> str:
+    unique = set(list(data))
+    ordered = sorted(unique)
+    str_data = "".join(ordered)
+    return str_data
+
+
+print(uniqueOrder('abcdabcd'))
