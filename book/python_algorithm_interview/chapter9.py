@@ -1,3 +1,6 @@
+from typing import Deque, List
+
+
 def isValid(data: str) -> bool:
     stack = []
     valid_dict = {
@@ -39,4 +42,21 @@ def uniqueOrder(data: str) -> str:
     return str_data
 
 
-print(uniqueOrder('abcdabcd'))
+def warmer(T: List[int]) -> List[int]:
+    results = []
+
+    for i in range(len(T) - 1):
+        for j in range(i+1, len(T)):
+            temp = 0
+            if T[i] < T[j]:
+                temp = j - i
+                break
+        if temp:
+            results.append(temp)
+        else:
+            results.append(0)
+
+    return results
+
+
+print(warmer([73, 74, 75, 69, 72, 76, 73]))
