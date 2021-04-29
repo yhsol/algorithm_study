@@ -59,4 +59,29 @@ def warmer(T: List[int]) -> List[int]:
     return results
 
 
-print(warmer([73, 74, 75, 69, 72, 76, 73]))
+class StackBuildWithQueue:
+    def __init__(self):
+        self.data = []
+
+    def push(self, x):
+        self.data.append(x)
+
+    def pop(self):
+        return self.data.pop(0)
+
+    def top(self):
+        return self.data[0]
+
+    def empty(self):
+        return len(self.data) == 0
+
+
+stack = StackBuildWithQueue()
+print(stack.push(1))
+print(stack.push(2))
+print(stack.top())
+print(stack.pop())
+print(stack.empty())
+print(stack.data)
+
+# print(warmer([73, 74, 75, 69, 72, 76, 73]))
