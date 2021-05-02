@@ -1,4 +1,5 @@
 from typing import Deque, List
+import collections
 
 
 def isValid(data: str) -> bool:
@@ -59,4 +60,48 @@ def warmer(T: List[int]) -> List[int]:
     return results
 
 
-print(warmer([73, 74, 75, 69, 72, 76, 73]))
+class StackBuildWithQueue:
+    def __init__(self):
+        self.data = []
+
+    def push(self, x):
+        self.data.append(x)
+
+    def pop(self):
+        return self.data.pop()
+
+    def top(self):
+        return self.data[-1]
+
+    def empty(self):
+        return len(self.data) == 0
+
+
+class StackBuildWithQueueBook:
+    def __init__(self):
+        self.q = collections.deque()
+
+    def push(self, x):
+        self.q.append(x)
+        for _ in range(len(self.q) - 1):
+            self.q.append(self.q.popleft())
+
+    def pop(self):
+        return self.q.popleft()
+
+    def top(self):
+        return self.q[0]
+
+    def empty(self):
+        return len(self.q) == 0
+
+
+stack = StackBuildWithQueueBook()
+print(stack.push(1))
+print(stack.push(2))
+print(stack.top())
+print(stack.pop())
+print(stack.empty())
+print(stack.q)
+
+# print(warmer([73, 74, 75, 69, 72, 76, 73]))
