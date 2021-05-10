@@ -97,11 +97,47 @@ class StackBuildWithQueueBook:
 
 
 stack = StackBuildWithQueueBook()
-print(stack.push(1))
-print(stack.push(2))
-print(stack.top())
-print(stack.pop())
-print(stack.empty())
-print(stack.q)
+# print(stack.push(1))
+# print(stack.push(2))
+# print(stack.top())
+# print(stack.pop())
+# print(stack.empty())
+# print(stack.q)
 
 # print(warmer([73, 74, 75, 69, 72, 76, 73]))
+
+
+class MyCircularQueueInBook:
+    def __init__(self, k: int):
+        self.queue = [None] * k
+        self.maxlen = k
+        self.front = 0
+        self.rear = 0
+
+    def enQueue(self, value: int) -> bool:
+        if self.queue[self.rear] is None:
+            self.queue[self.rear] = value
+            self.rear = (self.rear + 1) % self.maxlen
+            return True
+        else:
+            return False
+
+    def deQueue(self):
+        if self.queue[self.front] is None:
+            return False
+        else:
+            self.queue[self.front] = None
+            self.front = (self.front + 1) % self.maxlen
+            return True
+
+    def Front(self) -> int:
+        return -1 if self.queue[self.front] is None else self.queue[self.front]
+
+    def Rear(self) -> int:
+        return -1 if self.queue[self.rear - 1] is None else self.queue[self.rear - 1]
+
+    def isEmpty(self) -> bool:
+        return self.front == self.rear and self.queue[self.front] is None
+
+    def isFull(self) -> bool:
+        return self.front == self.rear and self.queue[self.front] is not None

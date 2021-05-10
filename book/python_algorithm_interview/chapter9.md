@@ -90,3 +90,48 @@ for _ in range(5):
 
 23. 큐를 이용한 스택 구현
     문제: 큐를 이용해 다음 연산을 지원하는 스택을 구현하라.
+
+24. 스택을 이용한 큐 구현
+
+25. 원형 큐 디자인
+    문제: 원형 큐를 디자인하라.
+    풀이1: 배열을 이용한 풀이
+
+    - FIFO 구조는 기존의 큐와 동일
+    - 그러나 마지막 위치가 시작 위치와 연결 됨 -> 링 버퍼(Ring Buffer)라고도 부름
+    - 기존의 큐는 공간이 꽉 차면 더 이상 요소를 추가할 수 없음
+    - 심지어 앞쪽에 요소들이 deQueue()로 모두 빠져서 충분한 공간이 남게 돼도 그쪽으로는 추가할 수 있는 방법이 없음
+    - 그래서 앞쪽에 공간이 남아 있다면 동그랗게 연결해 앞쪽으로 추가할 수 있도록 재활용 가능한 구조가 바로 원형 큐
+    - 동작 원리
+      - 동작 원리는 투 포인터와도 비슷
+      - 마지막 위치와 시작 위치를 연결하는 원형 구조를 만들고, 요소의 시작점과 끝점을 따라 투 포인터가 움직인다.
+      - enQueue()를 하게 되면 rear 포인터가 앞으로 이동하고,
+        deQueue()를 하게 되면 front 포인터가 앞으로 이동한다.
+      - 이렇게 enQueue()와 deQueue()를 반복하게 되면 서로 동그랗게 연결되어 있기 때문에 투 포인터가 빙글빙글 돌면서 이동하는 구조가 된다.
+      - 만약 rear 포인터가 front 포인터와 같은 위치에서 서로 만나게 된다면, 다시 말해 만나는 위치까지 이동했다면, 그때는 정말로 여유 공간이 하나도 없다는 얘기가 되므로 공간 부족 에러를 발생시킴
+    - code
+
+    ```py
+        def __init__(self, k: int):
+            self.queue = [None] * k
+            self.maxlen = k
+            self.front = 0
+            self.rear = 0
+
+        def enQueue(self, value: int) -> bool:
+            if self.queue[self.rear] is None:
+                self.qqueue[self.rear] = value
+                self.rear = (self.rear + 1) % self.maxlen
+                return True
+            else:
+                return False
+
+        def deQueue(self) -> bool:
+            if self.queue[self.front] is None:
+                return False
+            else:
+                self.queue[self.front] = None
+                self.front = (self.front + 1) % self.maxlen
+                return True
+
+    ```
