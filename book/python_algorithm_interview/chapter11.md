@@ -36,3 +36,28 @@ AF32B -> D5
   - 해시 테이블 사용 효율이 높은 것
 
 ## 비둘기집 원리
+
+28. 해시맵 디자인
+
+문제: 다음의 기능을 제공하는 해시맵을 디자인하라.
+
+- put(key, value): 키, 값을 해시맵에 삽입한다. 만약 이미 존재하는 키라면 업데이트한다.
+- get(key): 키에 해당하는 값을 조회한다. 만약 키가 존재하지 않느다면 -1을 리턴한다.
+- remove(key): 키에 해당하는 키, 값을 해시맵에서 삭제한다.
+
+풀이1. 개별 체이닝 방식을 이용한 해시 테이블 구현
+
+```py
+class MyHashMap:
+    def __init__(self):
+        pass
+
+    def put(self, key: int, value: int) -> None:
+        pass
+
+    def get(self, key: int) -> int:
+        pass
+
+    def remove(self, key: int) -> None:
+        pass
+```
