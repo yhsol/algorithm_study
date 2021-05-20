@@ -36,3 +36,72 @@ AF32B -> D5
   - 해시 테이블 사용 효율이 높은 것
 
 ## 비둘기집 원리
+
+28. 해시맵 디자인
+
+문제: 다음의 기능을 제공하는 해시맵을 디자인하라.
+
+- put(key, value): 키, 값을 해시맵에 삽입한다. 만약 이미 존재하는 키라면 업데이트한다.
+- get(key): 키에 해당하는 값을 조회한다. 만약 키가 존재하지 않느다면 -1을 리턴한다.
+- remove(key): 키에 해당하는 키, 값을 해시맵에서 삭제한다.
+
+풀이1. 개별 체이닝 방식을 이용한 해시 테이블 구현
+
+```py
+class ListNode:
+    def __init__(self, key=None, value=None):
+        self.key = key
+        self.value = value
+        self.next = None
+
+class MyHashMap:
+    def __init__(self):
+        self.size = 1000
+        self.table = collections.defaultdict(ListNode)
+
+    def put(self, key: int, value: int) -> None:
+        index = key % self.size
+        if self.table[index].value is None:
+            self.table[index] = ListNode(key, value)
+            return
+
+        p = self.table[index]
+        while p:
+            if p.key == key:
+                p.value = value
+                return
+            if p.next is None:
+                break
+            p = p.next
+        p.next = ListNode(key, value)
+
+    def get(self, key: int) -> int:
+        index = key % self.size
+        if self.table[index].value is None:
+            return - 1
+        p = self.table[index]
+        while p:
+            if p.key == key:
+                return p.value
+            p = p.next
+        return -1
+
+    def remove(self, key: int) -> None:
+        index = key % self.size
+        if self.table[index].value is None:
+            return
+
+        # 인덱스의 첫 번째 노드일 때 삭제 처리
+        p = self.table[index]
+        if p.key == key:
+            self.table[index] = ListNode() if p.next is None else p.next
+            return
+
+        # 연결 리스트 노드 삭제
+        prev = p
+        while p:
+            if p.key == key:
+                prev.next = p.next
+                return
+            prev, p = p, next
+```
