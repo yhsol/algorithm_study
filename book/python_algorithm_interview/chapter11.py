@@ -141,4 +141,35 @@ def numJewelsInStones4(J: str, S: str) -> int:
     return sum(s in J for s in S)
 
 
-print(numJewelsInStones("aA", "aAAbbbb"))
+def printUniqueStrLength(s: str) -> int:
+    count = 0
+    max = 0
+
+    for i in range(len(s) - 1):
+        words = []
+        words.append(s[i])
+        for j in range(i+1, len(s)):
+            if s[j] in words:
+                break
+            words.append(s[j])
+        if len(words) > max:
+            max = len(words)
+
+    return max
+
+
+def lengthOfLongesSubstring(s: str) -> int:
+    used = {}
+    max_length = start = 0
+    for index, char in enumerate(s):
+        if char in used and start <= used[char]:
+            start = used[char] + 1
+        else:
+            max_length = max(max_length, index - start + 1)
+
+        used[char] = index
+
+    return max_length
+
+
+print(printUniqueStrLength("qwwkew"))
