@@ -83,3 +83,93 @@ class MyHashMap:
                 prev.next = p.next
                 return
             prev, p = p, next
+
+
+def jewelAndStone(j: str, s: str) -> int:
+    jewels = set()
+    count = 0
+    for item in j:
+        jewels.add(item)
+    for item in s:
+        if item in jewels:
+            count += 1
+    return count
+
+
+def numJewelsInStones(J: str, S: str) -> int:
+    freqs = {}
+    count = 0
+
+    for char in S:
+        if char not in freqs:
+            freqs[char] = 1
+        else:
+            freqs[char] += 1
+
+    for char in J:
+        if char in freqs:
+            count += freqs[char]
+
+    return count
+
+
+def numJewelsInStones2(J: str, S: str) -> int:
+    freqs = collections.defaultdict(int)
+    count = 0
+
+    for char in S:
+        freqs[char] += 1
+
+    for char in J:
+        if char in freqs:
+            count += freqs[char]
+
+    return count
+
+
+def numJewelsInStones3(J: str, S: str) -> int:
+    freqs = collections.Counter(S)
+    count = 0
+
+    for char in J:
+        count += freqs[char]
+
+    return count
+
+
+def numJewelsInStones4(J: str, S: str) -> int:
+    return sum(s in J for s in S)
+
+
+def printUniqueStrLength(s: str) -> int:
+    count = 0
+    max = 0
+
+    for i in range(len(s) - 1):
+        words = []
+        words.append(s[i])
+        for j in range(i+1, len(s)):
+            if s[j] in words:
+                break
+            words.append(s[j])
+        if len(words) > max:
+            max = len(words)
+
+    return max
+
+
+def lengthOfLongesSubstring(s: str) -> int:
+    used = {}
+    max_length = start = 0
+    for index, char in enumerate(s):
+        if char in used and start <= used[char]:
+            start = used[char] + 1
+        else:
+            max_length = max(max_length, index - start + 1)
+
+        used[char] = index
+
+    return max_length
+
+
+print(printUniqueStrLength("qwwkew"))
