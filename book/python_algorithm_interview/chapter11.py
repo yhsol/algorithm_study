@@ -1,5 +1,7 @@
 import random
 import collections
+from typing import List
+import heapq
 
 
 def birthdayProblem():
@@ -172,4 +174,31 @@ def lengthOfLongesSubstring(s: str) -> int:
     return max_length
 
 
-print(printUniqueStrLength("qwwkew"))
+def upperK(nums: List[int], k: int) -> List[int]:
+    results = []
+    countered = collections.Counter(nums)
+    for i in countered:
+        if countered[i] >= k:
+            results.append(i)
+    return results
+
+
+def topKFrequent(nums: List[int], k: int) -> List[int]:
+    freqs = collections.Counter(nums)
+    freqs_heap = []
+    for f in freqs:
+        heapq.heappush(freqs_heap, (-freqs[f], f))
+
+    topk = list()
+
+    for _ in range(k):
+        topk.append(heapq.heappop(freqs_heap)[1])
+
+    return topk
+
+
+def pythonicTopKFrequent(nums: List[int], k: int) -> List[int]:
+    return list(zip(*collections.Counter(nums).most_common(k)))[0]
+
+
+print(topKFrequent([1, 1, 1, 2, 2, 3], 2))
