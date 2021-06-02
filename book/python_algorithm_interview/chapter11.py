@@ -1,5 +1,6 @@
 import random
 import collections
+from typing import List
 
 
 def birthdayProblem():
@@ -172,4 +173,26 @@ def lengthOfLongesSubstring(s: str) -> int:
     return max_length
 
 
-print(printUniqueStrLength("qwwkew"))
+def lengthOfLongesSubstring2(s: str) -> int:
+    used = {}
+    max_length = start = 0
+    for index, char in enumerate(s):
+        if char in used and start <= used[char]:
+            sart = used[char] + 1
+        else:
+            max_length = max(max_length, index - start + 1)
+
+        used[char] = index
+
+    return max_length
+
+
+def frequencyUpperK(nums: List[int], k: int) -> List[int]:
+    nums_dict = collections.Counter(nums)
+    results = []
+    for i in nums_dict:
+        pass
+    return results
+
+
+print(frequencyUpperK([1, 1, 1, 2, 2, 3], 2))
