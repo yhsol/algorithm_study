@@ -1,0 +1,165 @@
+# 그래프
+
+수학에서, 좀 더 구체적으로 그래프 이론에서 그래프란 객체의 일부 쌍(pair)들이 '연관되어' 있는 객체 집합 구조를 말한다.
+
+### 그래프 순회
+
+그래프 순회란 그래프 탐색(Search)이라고도 불리우며 그래프의 각 정점을 방문하는 과정을 말한다.
+
+- 그래프 순회(Graph Traversals)에는 크게 2가지 알고리즘
+  - 깊이 우선 탐색(Depth-First-Search)
+    - 주로 스택으로 구현하거나 재귀로 구현
+    - 백트래킹을 통해 뛰어는 효용
+  - 너비 우선 탐색(Breadth-Frist-Search)
+    - 주로 큐로 구현
+    - 그래프의 퇴단 경로를 구하는 문제 등에 사용
+
+```py
+graph = {
+    1: [2, 3, 4],
+    2: [5],
+    3: [5],
+    4: [],
+    5: [6, 7],
+    6: [],
+    7: [3],
+}
+```
+
+#### DFS(깊이 우선 탐색)
+
+- 재귀 구조로 구현
+
+위키피디아에 제시된 수도코드
+
+```
+DFS(G, v)
+    label v as discovered
+    for all directed edges from v to w that are in G.adjacentEdges(v) do
+        if vertex w is not labeled as discovered then
+            recursibely call DFS(G, w)
+```
+
+파이썬으로 구현
+
+```py
+def recursive_dfs(v, discovered=[]):
+    discovered.append(v)
+    for w in graph[v]:
+        if w not in discovered:
+            discovered = recursive_dfs(w, discovered)
+    return discovered
+```
+
+-> 탐색 결과
+
+```
+>>> f'recursive dfs: {recursive_dfs(1)}'
+'recursive dfs: [1, 2, 5, 6, 7, 3, 4]'
+```
+
+- 스택을 이용한 반복 구조로 구현
+
+수도 코드
+
+```
+DFS-iterative(G, v)
+    let S be a stack
+    S.push(v)
+    while S is not empty do
+        v = S.pop()
+        if v is not labeled as discovered then
+            label v as discovered
+            for all edges from v to w in G.adjacentEdges(V) do
+                S.push(w)
+```
+
+파이선 코드
+
+```py
+def iterative_dfs(start_v):
+    discovered = []
+    stack = [start_v]
+    while stack:
+        v = stack.pop()
+        if v not in discovred:
+            discovered.append(v)
+            for w in graph[v]:
+                stack.append(w)
+    return discovred
+```
+
+대부분의 경우 재귀 구현은 반복으로,
+반복 구현은 재귀로 서로 바꿔서 알고리즘을 구현할 수 잇으므로
+자유롭게 바꿔가며 익숙해질 때까지 꾸준히 연습
+
+-> 탐색 결과
+
+```
+>>> f'iterative dfs: {iterative_dfs(1)}'
+'iterative dfs: [1, 4, 3, 5, 7, 6, 2]'
+```
+
+#### BFS(너비 우선 탐색)
+
+최단 경로를 찾는 다익스트라 알고리즘 등에 매우 유용하게 쓰인다.
+
+- 큐를 이용한 반복 구조로 구현
+  스택을 이용하는 DFS와 달리, BFS를 반복 구조로 구현할 때는 큐를 이용한다.
+
+수도 코드
+
+```
+BFS(G, start_v)
+   let Q be a queue
+   label start_v as discovered
+   Q.enqueue(start_v)
+   while Q is not empty do
+       v := Q.dequeue()
+       if v is the goal then
+           return v
+       for all edges from v to w in G.adjacentEdges(v) do
+           if w is not labeled as discovered then
+               label w as discovered
+               w.parent := v
+               Q.enqueue(w)
+```
+
+파이썬 코드
+
+```py
+def iterative_bfs(start_v):
+   discovered = [start_v]
+   queue = [start_v]
+   while queue:
+       v = queue.pop(0)
+       for w in graph[v]:
+           if w not in discovered:
+               discovered.append(w)
+               queue.qppend(w)
+   return discovered
+```
+
+-> 탐색 결과
+
+```
+>>> f'iterative bfs: {iterative_bfs(1)}'
+'iterative bfs: [1, 2, 3, 4, 5, 6, 7]'
+```
+
+- 재귀 구현 불가
+  - BFS는 재귀로 동작하지 않는다. 큐를 이용하는 반복 구현만 가능
+
+### 백트래킹
+
+백트래킹(Backtracking)은 해결책에 대한 후보를 구축해 나아가다 가능성이 없다고 판단되는 즉시 후보를 포기(백트랙BackTrack)해 정답을 찾아가는 범용적인 알고리즘으로 제약 충족 문제(Constraint Satisfaction Problems)에 특히 유용하다.
+
+### 제약 충족 문제
+
+백트래킹은 제약 충족 문제(Constraint Satisfaction Problems)(이하 CSP)를 풀이하는 데 필수적인 알고리즘이다. 앞서 살펴본 가지치기를 통해 제약 충족 문제를 최적화 하기 때문이다.
+
+제약 충족 문제란 수많은 제약 조건(Constraints)을 충족하는 상태(States)를 찾아내는 수학 문제를 일컫는다.
+
+32. 섬의 개수
+    문제: 1을 육지로, 0을 물로 가정한 2D 그리드 맵이 주어졌을때, 섬의 개수를 계산하라. (연결되어 있는 1의 덩어리 개수를 구하라.)
+    풀이1: DFS로 그래프 탐색
