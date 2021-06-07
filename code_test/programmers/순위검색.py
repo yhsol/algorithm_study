@@ -15,21 +15,18 @@
 # 딕셔너리에 담아서 해야되나
 
 
-from typing import List
-
-
-def solution(info: List[str], query: List[str]) -> List[int]:
+def solution(info, query):
     answer = []
 
     info_list = []
     query_list = []
 
-    for i in info:
-        splited_info = i.split(" ")
-        info_dict = {}
-        for index, item in enumerate(splited_info):
-            info_dict[index] = item
-        info_list.append(info_dict)
+    # for i in info:
+    #     splited_info = i.split(" ")
+    #     info_dict = {}
+    #     for index, item in enumerate(splited_info):
+    #         info_dict[index] = item
+    #     info_list.append(info_dict)
 
     for i in query:
         splited_by_and = i.split("and")  # 각 조건 분리
@@ -45,12 +42,12 @@ def solution(info: List[str], query: List[str]) -> List[int]:
 
     for query_item in query_list:
         passed = 0
-        for info_item in info_list:
-            if query_item[0] == "-" or query_item[0] == info_item[0]:
-                if query_item[1] == "-" or query_item[1] == info_item[1]:
-                    if query_item[2] == "-" or query_item[2] == info_item[2]:
-                        if query_item[3] == "-" or query_item[3] == info_item[3]:
-                            if query_item[4] == "-" or int(query_item[4]) <= int(info_item[4]):
+        for info_item in info:
+            if query_item[0] == "-" or query_item[0] in info_item:
+                if query_item[1] == "-" or query_item[1] in info_item:
+                    if query_item[2] == "-" or query_item[2] in info_item:
+                        if query_item[3] == "-" or query_item[3] in info_item:
+                            if query_item[4] == "-" or int(query_item[4]) <= int(info_item.split(" ")[-1]):
                                 passed += 1
             # if condition:
             #     passed += 1
