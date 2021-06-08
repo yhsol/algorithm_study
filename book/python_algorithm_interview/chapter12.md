@@ -163,3 +163,70 @@ def iterative_bfs(start_v):
 32. 섬의 개수
     문제: 1을 육지로, 0을 물로 가정한 2D 그리드 맵이 주어졌을때, 섬의 개수를 계산하라. (연결되어 있는 1의 덩어리 개수를 구하라.)
     풀이1: DFS로 그래프 탐색
+
+---
+
+## 중처 함수
+
+함수 내에 위치한 또 다른 함수
+바깥에 위치한 함수들과 달리 부모 함수의 변수를 자유롭게 읽을 수 있다는 장점이 있다.
+
+예
+
+```py
+def outer_function(t: str):
+    text: str = t
+
+    def inner_function():
+        print(text)
+
+    inner_function()
+
+outer_funcion('Hello!')
+
+#=> Hello!
+```
+
+- 연산자 조작
+  중첩 함수에서 부모 함수에서 선언한 변수를 연산자로 조작하는 경우
+
+```py
+def outer_function(a: List[int]):
+    b: List[int] = a
+    print(id(b), b)
+
+    def inner_function1():
+        b.append(4)
+        print(id(b), b)
+
+    def inner_function2():
+        print(id(b), b)
+
+    inner_function1()
+    inner_function2()
+
+outer_function([1,2,3])
+```
+
+- 재할당
+  재할당으로 참조 I가 변경되는 경우
+
+```py
+def outer_function(t: str):
+    text: str = t
+    print(id(text), text)
+
+    def inner_function1():
+        text = 'World!'
+        print(id(text), text)
+
+    def inner_function2():
+        print(id(text), text)
+
+    inner_function1()
+    inner_function2()
+
+outer_function('Hello!')
+```
+
+---

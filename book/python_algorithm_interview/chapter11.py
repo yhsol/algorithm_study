@@ -1,7 +1,10 @@
+import heapq
 import random
 import collections
 from typing import List
-import heapq
+<< << << < HEAD
+== == == =
+>>>>>> > 339d15003a9bb7aa2f4bd1315c25c5e88c4a1d0c
 
 
 def birthdayProblem():
@@ -172,6 +175,31 @@ def lengthOfLongesSubstring(s: str) -> int:
         used[char] = index
 
     return max_length
+
+
+def lengthOfLongesSubstring2(s: str) -> int:
+    used = {}
+    max_length = start = 0
+    for index, char in enumerate(s):
+        if char in used and start <= used[char]:
+            sart = used[char] + 1
+        else:
+            max_length = max(max_length, index - start + 1)
+
+        used[char] = index
+
+    return max_length
+
+
+def frequencyUpperK(nums: List[int], k: int) -> List[int]:
+    nums_dict = collections.Counter(nums)
+    results = []
+    for i in nums_dict:
+        pass
+    return results
+
+
+print(frequencyUpperK([1, 1, 1, 2, 2, 3], 2))
 
 
 def upperK(nums: List[int], k: int) -> List[int]:
