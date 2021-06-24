@@ -314,6 +314,22 @@ def reverse_text_two_pointer(chars: List[str]) -> None:
         right -= 1
 
 
-chars = list("hannaH")
-reverse_text(chars)
-print(chars)
+def realignment_log_file(logs: List[str]) -> List[str]:
+    digits = []
+    letters = []
+
+    for log in logs:
+        if log.split()[1].isdigit():
+            digits.append(log)
+        else:
+            letters.append(log)
+
+    letters.sort(key=lambda x: (x.split()[1:], x.split()[0]))
+
+    # print(digits, letters)
+    return letters + digits
+
+
+result = realignment_log_file(["dig1 8 1 5 1", "let1 art can",
+                               "dig2 3 6", "let2 own kit dig", "let3 art zero"])
+print(result)
