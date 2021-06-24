@@ -250,5 +250,51 @@ def longestPalindrome(s: str) -> str:
         )
     return result
 
+# print(mostLongPalindrome('abbabbba'))
 
-print(mostLongPalindrome('abbabbba'))
+# 두번째
+
+
+def valid_palindrome(text: str) -> bool:
+    result = True
+    queue = []
+
+    for item in text:
+        if item.isalnum():
+            queue.append(item.lower())
+
+    for i in range(len(queue)):
+        if queue[i] != queue[-1-i]:
+            result = False
+            break
+
+    return result
+
+
+def valid_palindrome_deque(text: str) -> bool:
+    chars: Deque = collections.deque()
+
+    for char in text:
+        if char.isalnum():
+            chars.append(char.lower())
+
+    while len(chars) > 1:
+        if chars.popleft() != chars.pop():
+            return False
+
+    return True
+
+
+def valid_palindrome_slice(text: str) -> bool:
+    formatted_text = ''
+
+    for char in text:
+        if char.isalnum():
+            formatted_text += char.lower()
+
+    reversed_text = formatted_text[::-1]
+
+    return formatted_text == reversed_text
+
+
+print(valid_palindrome_slice("A man, a plan, a canal: Panama"))
