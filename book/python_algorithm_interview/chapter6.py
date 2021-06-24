@@ -330,6 +330,34 @@ def realignment_log_file(logs: List[str]) -> List[str]:
     return letters + digits
 
 
-result = realignment_log_file(["dig1 8 1 5 1", "let1 art can",
-                               "dig2 3 6", "let2 own kit dig", "let3 art zero"])
-print(result)
+def most_common_word(paragraph: str, banned: List[str]) -> str:
+    banned_symbol = [',', '.']
+    formatted_str = ''
+    formatted_list = []
+
+    for item in paragraph:
+        if item not in banned_symbol:
+            formatted_str += item
+
+    splited = formatted_str.split()
+
+    for item in splited:
+        if item not in banned:
+            formatted_list.append(item.lower())
+
+    return collections.Counter(formatted_list).most_common(1)[0][0]
+
+
+def most_common_word_book(paragraph: str, banned: List[str]) -> str:
+    words = [
+        word for word in re.sub(r'[^\w]', ' ', paragraph).lower().split()
+        if word not in banned
+    ]
+
+    counts = collections.Counter(words)
+
+    return counts.most_common(1)[0][0]
+
+
+print(most_common_word_book(
+    "Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"]))
