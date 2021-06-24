@@ -297,4 +297,23 @@ def valid_palindrome_slice(text: str) -> bool:
     return formatted_text == reversed_text
 
 
-print(valid_palindrome_slice("A man, a plan, a canal: Panama"))
+def reverse_text(chars: List[str]) -> None:
+    rear = -1
+
+    for i in range((len(chars) - 1) // 2):
+        chars[i], chars[rear] = chars[rear], chars[i]
+        rear -= 1
+
+
+def reverse_text_two_pointer(chars: List[str]) -> None:
+    left, right = 0, len(chars) - 1
+
+    while left < right:
+        chars[left], chars[right] = chars[right], chars[left]
+        left += 1
+        right -= 1
+
+
+chars = list("hannaH")
+reverse_text(chars)
+print(chars)
