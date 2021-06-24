@@ -118,7 +118,6 @@ class BinSearchTree:
                 # 순환문이 종료할 때 successor 는 바로 다음 키를 가진 노드를,
                 # 그리고 parent 는 그 노드의 부모 노드를 가리키도록 찾아냅니다.
                 while successor.left:
-                    parent = successor
                     successor = successor.left
                 # 삭제하려는 노드인 node 에 successor 의 key 와 data 를 대입합니다.
                 node.key = successor.key
@@ -127,9 +126,15 @@ class BinSearchTree:
                 # 그에 따라 parent.left 또는 parent.right 를
                 # successor 가 가지고 있던 (없을 수도 있지만) 자식을 가리키도록 합니다.
                 if successor == parent.left:
-                    parent.left = successor.right
-                if successor == parent.right:
-                    parent.right = successor.right
+                    if successor.left:
+                        parent.left = successor.left
+                    if successor.right:
+                        parent.left = successor.right
+                else:
+                    if successor.left:
+                        parent.right = successor.left
+                    if successor.right:
+                        parent.right = successor.right
 
             return True
 
