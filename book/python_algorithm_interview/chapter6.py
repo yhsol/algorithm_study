@@ -359,5 +359,29 @@ def most_common_word_book(paragraph: str, banned: List[str]) -> str:
     return counts.most_common(1)[0][0]
 
 
-print(most_common_word_book(
-    "Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"]))
+def group_anagrams(strs: List[str]) -> List[List[str]]:
+    anagram_dict = {}
+    result = []
+    for item in strs:
+        sorted_str = "".join(sorted(item))
+        if sorted_str in anagram_dict:
+            anagram_dict[sorted_str].append(item)
+        else:
+            anagram_dict[sorted_str] = [item]
+
+    for item in anagram_dict:
+        result.append(anagram_dict[item])
+
+    return result
+
+
+def group_anagrams(strs: List[str]) -> List[List[str]]:
+    anagrams = collections.defaultdict(list)
+
+    for word in strs:
+        anagrams["".join(sorted(word))].append(word)
+
+    return list(anagrams.values())
+
+
+print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
