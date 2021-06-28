@@ -250,6 +250,7 @@ def longestPalindrome(s: str) -> str:
         )
     return result
 
+# print(mostLongPalindrome('abbabbba'))
 
 # print(mostLongPalindrome('abbabbba'))
 
@@ -266,6 +267,37 @@ def isPalindrome(s: str) -> bool:
             return False
 
     return True
+# 두번째
+
+
+def valid_palindrome(text: str) -> bool:
+    result = True
+    queue = []
+
+    for item in text:
+        if item.isalnum():
+            queue.append(item.lower())
+
+    for i in range(len(queue)):
+        if queue[i] != queue[-1-i]:
+            result = False
+            break
+
+    return result
+
+
+def valid_palindrome_deque(text: str) -> bool:
+    chars: Deque = collections.deque()
+
+    for char in text:
+        if char.isalnum():
+            chars.append(char.lower())
+
+    while len(chars) > 1:
+        if chars.popleft() != chars.pop():
+            return False
+
+    return True
 
 
 def isPalindrome_string(s: str) -> bool:
@@ -278,3 +310,123 @@ def isPalindrome_string(s: str) -> bool:
 
 
 print(isPalindrome_string('abab'))
+
+
+def valid_palindrome_slice(text: str) -> bool:
+    formatted_text = ''
+
+    for char in text:
+        if char.isalnum():
+            formatted_text += char.lower()
+
+    reversed_text = formatted_text[::-1]
+
+    return formatted_text == reversed_text
+
+
+def reverse_text(chars: List[str]) -> None:
+    rear = -1
+
+    for i in range((len(chars) - 1) // 2):
+        chars[i], chars[rear] = chars[rear], chars[i]
+        rear -= 1
+
+
+def reverse_text_two_pointer(chars: List[str]) -> None:
+    left, right = 0, len(chars) - 1
+
+    while left < right:
+        chars[left], chars[right] = chars[right], chars[left]
+        left += 1
+        right -= 1
+
+
+def realignment_log_file(logs: List[str]) -> List[str]:
+    digits = []
+    letters = []
+
+    for log in logs:
+        if log.split()[1].isdigit():
+            digits.append(log)
+        else:
+            letters.append(log)
+
+    letters.sort(key=lambda x: (x.split()[1:], x.split()[0]))
+
+    # print(digits, letters)
+    return letters + digits
+
+
+def most_common_word(paragraph: str, banned: List[str]) -> str:
+    banned_symbol = [',', '.']
+    formatted_str = ''
+    formatted_list = []
+
+    for item in paragraph:
+        if item not in banned_symbol:
+            formatted_str += item
+
+    splited = formatted_str.split()
+
+    for item in splited:
+        if item not in banned:
+            formatted_list.append(item.lower())
+
+    return collections.Counter(formatted_list).most_common(1)[0][0]
+
+
+def most_common_word_book(paragraph: str, banned: List[str]) -> str:
+    words = [
+        word for word in re.sub(r'[^\w]', ' ', paragraph).lower().split()
+        if word not in banned
+    ]
+
+    counts = collections.Counter(words)
+
+    return counts.most_common(1)[0][0]
+
+
+def group_anagrams(strs: List[str]) -> List[List[str]]:
+    anagram_dict = {}
+    result = []
+    for item in strs:
+        sorted_str = "".join(sorted(item))
+        if sorted_str in anagram_dict:
+            anagram_dict[sorted_str].append(item)
+        else:
+            anagram_dict[sorted_str] = [item]
+
+    for item in anagram_dict:
+        result.append(anagram_dict[item])
+
+    return result
+
+
+def group_anagrams(strs: List[str]) -> List[List[str]]:
+    anagrams = collections.defaultdict(list)
+
+    for word in strs:
+        anagrams["".join(sorted(word))].append(word)
+
+    return list(anagrams.values())
+
+
+def longest_palindrome(s: str) -> str:
+    def expand(left: int, right: int) -> str:
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left+1:right]
+
+    if len(s) < 2 or s == s[::-1]:
+        return s
+
+    result = ''
+
+    for i in range(len(s) - 1):
+        result = max(result, expand(i, i+1), expand(i, i+2), key=len)
+
+    return result
+
+
+print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
