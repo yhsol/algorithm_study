@@ -251,4 +251,30 @@ def longestPalindrome(s: str) -> str:
     return result
 
 
-print(mostLongPalindrome('abbabbba'))
+# print(mostLongPalindrome('abbabbba'))
+
+
+def isPalindrome(s: str) -> bool:
+    strs = collections.deque()
+
+    for char in s:
+        if char.isalnum():
+            strs.sppend(char.lower())
+
+    while len(strs) > 1:
+        if strs.popleft() != strs.pop():
+            return False
+
+    return True
+
+
+def isPalindrome_string(s: str) -> bool:
+    text = ''
+    for i in s:
+        if i.isalnum():
+            text += i.lower()
+
+    return text == text[::-1]
+
+
+print(isPalindrome_string('abab'))
