@@ -309,9 +309,6 @@ def isPalindrome_string(s: str) -> bool:
     return text == text[::-1]
 
 
-print(isPalindrome_string('abab'))
-
-
 def valid_palindrome_slice(text: str) -> bool:
     formatted_text = ''
 
@@ -429,4 +426,19 @@ def longest_palindrome(s: str) -> str:
     return result
 
 
-print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+def longest_palindromic_substring(s: str) -> str:
+    def expand(left: int, right: int) -> str:
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left+1:right]
+
+    if len(s) < 2 or s == s[::-1]:
+        return s
+
+    result = ''
+
+    for i in range(len(s) - 1):
+        result = max(result, expand(i, i+1), expand(i, i+2), key=len)
+
+    return result
