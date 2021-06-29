@@ -252,6 +252,21 @@ def longestPalindrome(s: str) -> str:
 
 # print(mostLongPalindrome('abbabbba'))
 
+# print(mostLongPalindrome('abbabbba'))
+
+
+def isPalindrome(s: str) -> bool:
+    strs = collections.deque()
+
+    for char in s:
+        if char.isalnum():
+            strs.sppend(char.lower())
+
+    while len(strs) > 1:
+        if strs.popleft() != strs.pop():
+            return False
+
+    return True
 # 두번째
 
 
@@ -283,6 +298,15 @@ def valid_palindrome_deque(text: str) -> bool:
             return False
 
     return True
+
+
+def isPalindrome_string(s: str) -> bool:
+    text = ''
+    for i in s:
+        if i.isalnum():
+            text += i.lower()
+
+    return text == text[::-1]
 
 
 def valid_palindrome_slice(text: str) -> bool:
@@ -402,4 +426,19 @@ def longest_palindrome(s: str) -> str:
     return result
 
 
-print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+def longest_palindromic_substring(s: str) -> str:
+    def expand(left: int, right: int) -> str:
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left+1:right]
+
+    if len(s) < 2 or s == s[::-1]:
+        return s
+
+    result = ''
+
+    for i in range(len(s) - 1):
+        result = max(result, expand(i, i+1), expand(i, i+2), key=len)
+
+    return result
