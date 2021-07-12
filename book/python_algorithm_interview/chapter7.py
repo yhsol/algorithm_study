@@ -375,3 +375,21 @@ def rain_trap(height: List[int]) -> int:
 
 
 print(rain_trap([4, 2, 3]))
+
+
+def two_sum(nums: List[int], target: int) -> List[int]:
+    for i in range(len(nums) - 1):
+        for j in range(i+1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]
+
+
+def two_sum_2(nums: List[int], target: int) -> List[int]:
+    for i, n in enumerate(nums):
+        complement = target - n
+
+        if complement in nums[i+1:]:
+            return [i, nums[i+1:].index(complement) + (i + 1)]
+
+
+print(two_sum_2([2, 7, 11, 15], 9))
