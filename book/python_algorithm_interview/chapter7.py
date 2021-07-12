@@ -310,4 +310,68 @@ def maxProf(prices: List[int]) -> int:
     return profit
 
 
-print(stock([7, 1, 5, 3, 6, 4]))
+def twoSum(nums: List[int], target: int) -> List[int]:
+    nums_dict = {}
+    for i, v in enumerate(nums):
+        nums_dict[v] = i
+
+    for i, v in enumerate(nums):
+        if target - v in nums_dict and i != nums_dict[target-v]:
+            return [i, nums_dict[target-v]]
+
+
+def trapping_rain_water(height: List[int]) -> int:
+    result = 0
+    prev = 0
+    next = 1
+
+    while next < len(height):
+        if height[prev] > height[next]:
+            if height[prev] == max(height[prev::]):
+                prev = next + 1
+                next += 2
+            else:
+                print('plus timing: ', height[prev],
+                      height[next], height[prev] - height[next])
+                result += height[prev] - height[next]
+                next += 1
+        else:
+            if height[next] == max(height[next::]):
+                prev = next + 1
+                next += 2
+            else:
+                prev = next
+                next += 1
+
+    return result
+
+
+def rain_trap(height: List[int]) -> int:
+    if not height:
+        return 0
+
+    volume = 0
+
+    left = 0
+    right = len(height) - 1
+
+    left_max = height[left]
+    right_max = height[right]
+
+    while left < right:
+        print('start: ', left, left_max, right, right_max)
+        left_max = max(height[left], left_max)
+        right_max = max(height[right], right_max)
+
+        if left_max <= right_max:
+            volume += left_max - height[left]
+            left += 1
+        else:
+            volume += right_max - height[right]
+            right -= 1
+        print('end: ', left, left_max, right, right_max)
+
+    return volume
+
+
+print(rain_trap([4, 2, 3]))
