@@ -78,6 +78,11 @@ def solution(L, x):
     start = 0
     end = len(L) - 1
 
+    # 주석 처리한 코드를 넣으면 효율성 테스트를 통과하지 못함!
+    # 확실히 한번 더 돌면 느려지긴 하는구나
+    # if X not in L:
+    #   return -1
+
     while start <= end:
         middle = (start + end) // 2
         if L[middle] == x:
