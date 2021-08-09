@@ -1,6 +1,6 @@
-mod chapter_02_max_2;
+mod unit_03;
 
 fn main() {
     println!("here is main.rs");
-    chapter_02_max_2::run();
+    println!("result is here: {:?}", unit_03::run())
 }
