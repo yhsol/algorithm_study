@@ -1,4 +1,4 @@
-# recursive algorithms
+# 재귀 알고리즘 (recursive algorithms) - 응용
 
 ## recursive functions
 
