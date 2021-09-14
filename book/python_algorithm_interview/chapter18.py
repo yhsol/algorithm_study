@@ -1,22 +1,24 @@
 from typing import List, Set
 import bisect
 
+
 def search_recurcive(nums: List[int], target: int) -> int:
     def binary_search(left, right):
         if left <= right:
             mid = (left + right) // 2
-            
+
             if nums[mid] < target:
                 return binary_search(mid+1, right)
             elif nums[mid] > target:
                 return binary_search(left, mid - 1)
             else:
                 return mid
-        
+
         else:
             return -1
 
     return binary_search(0, len(nums) - 1)
+
 
 def search_loop(nums: List[int], target: int) -> int:
     left, right = 0, len(nums) - 1
@@ -31,6 +33,7 @@ def search_loop(nums: List[int], target: int) -> int:
             return mid
     return -1
 
+
 def search_bisect(nums: List[int], target: int) -> int:
     index = bisect.bisect_left(nums, target)
 
@@ -39,11 +42,13 @@ def search_bisect(nums: List[int], target: int) -> int:
     else:
         return -1
 
+
 def search_index(nums: List[int], target: int) -> int:
     try:
         return nums.index(target)
     except ValueError:
         return -1
+
 
 def search_pivot(nums: List[int], target: int) -> int:
     # 예외 처리
@@ -76,6 +81,7 @@ def search_pivot(nums: List[int], target: int) -> int:
 
     return -1
 
+
 def intersection(nums1: List[int], nums2: List[int]) -> List[int]:
     result: Set = set()
     for n1 in nums1:
@@ -83,7 +89,8 @@ def intersection(nums1: List[int], nums2: List[int]) -> List[int]:
             if n1 == n2:
                 result.add(n1)
 
-    return result 
+    return result
+
 
 def intersection_bs(nums1: List[int], nums2: List[int]) -> List[int]:
     result: Set = set()
@@ -95,6 +102,7 @@ def intersection_bs(nums1: List[int], nums2: List[int]) -> List[int]:
             result.add(n1)
 
     return result
+
 
 def intersection_two_pointer(nums1: List[int], nums2: List[int]) -> List[int]:
     result: Set = set()
@@ -115,6 +123,7 @@ def intersection_two_pointer(nums1: List[int], nums2: List[int]) -> List[int]:
             j += 1
     return result
 
+
 def two_sum(numbers: List[int], target: int) -> List[int]:
     start = 0
     end = len(numbers) - 1
@@ -124,10 +133,11 @@ def two_sum(numbers: List[int], target: int) -> List[int]:
             end -= 1
         elif numbers[start] + numbers[end] < target:
             start += 1
-        
+
         if (numbers[start] + numbers[end] == target):
             return [start + 1, end + 1]
     return -1
+
 
 def two_sum_in_book(numbers: List[int], target: int) -> List[int]:
     left, right = 0, len(numbers) - 1
@@ -139,4 +149,28 @@ def two_sum_in_book(numbers: List[int], target: int) -> List[int]:
         else:
             return [left + 1, right + 1]
 
-print(two_sum([2,7,11,15], 9))
+
+def two_sum_bs(numbers: List[int], target: int) -> List[int]:
+    for k, v in enumerate(numbers):
+        left, right = k + 1, len(numbers) - 1
+        expected = target - v
+        # 이진 검색으로 나머지 값 판별
+        while left <= right:
+            mid = left + (right - left) // 2
+            if numbers[mid] < expected:
+                left = mid + 1
+            elif numbers[mid] > expected:
+                right = mid - 1
+            else:
+                return [k + 1, mid + 1]
+
+
+def two_sum_bs_bisect(numbers: List[int], target: int) -> List[int]:
+    for k, v in enumerate(numbers):
+        expected = target - v
+        i = bisect.bisect_left(numbers, expected, k+1)
+        if i < len(numbers) and numbers[i] == expected:
+            return [k+1, i+1]
+
+
+print(two_sum_bs_bisect([2, 7, 11, 15], 9))
