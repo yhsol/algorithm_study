@@ -173,4 +173,30 @@ def two_sum_bs_bisect(numbers: List[int], target: int) -> List[int]:
             return [k+1, i+1]
 
 
+def search_matrix(matrix, target):
+    # 예외 처리
+    if not matrix:
+        return False
+
+    # 첫 행의 맨 뒤
+    row = 0
+    col = len(matrix[0]) - 1
+
+    while row <= len(matrix) - 1 and col >= 0:
+        if target == matrix[row][col]:
+            return True
+        # 타겟이 작으면 왼쪽으로 이동
+        elif target < matrix[row][col]:
+            col -= 1
+        # 타겟이 크면 아래로 이동
+        elif target > matrix[row][col]:
+            row += 1
+
+    return False
+
+
+def search_matrix(matrix, target):
+    return any(target in row for row in matrix)
+
+
 print(two_sum_bs_bisect([2, 7, 11, 15], 9))
