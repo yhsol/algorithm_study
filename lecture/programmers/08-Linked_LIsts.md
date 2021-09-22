@@ -49,11 +49,13 @@ def insertAt(self, pos, newNode):
         return False
     # prev 는 없고, head 는 newNode 의 next 로, 다시 slef.head 는 newNode 를 가리키도록 한다.
     if pos == 1:
+        # newNode 의 next 는 원래 head 의 Node 를 가리키도록 함
         newNode.next = self.head
+        # head 에는 newNode 를 설정
         self.head = newNode
     # pos 의 위치가 처음이 아니라면, 위 (원소의 삽입 - 코드 구현) 의 순서를 따름
-    # 이때 pos 가 마지막 위치라면 getAt 을 할 필요 없이 prev 에 tail 을 넣어주면 된다.
     else:
+        # 이때 pos 가 마지막 위치라면 getAt 을 할 필요 없이 prev 에 tail 을 넣어주면 된다.
         if pos == self.nodeCount + 1:
             prev = self.tail
         else:
@@ -133,6 +135,11 @@ class LinkedList:
         return True
 ```
 
+- 연결 리스트 원소 삽입의 복잡도
+  - 맨 앞에 삽입하는 경우: O(1)
+  - 중간에 삽입하는 경우: O(n)
+  - 맨 끝에 삽입하는 경우: O(1)
+
 ### 연결 리스트 연산 - 원소의 삭제
 
 ```
@@ -152,7 +159,7 @@ node 를 삭제하고
                 self.next = None
             prev = self.getAt(pos - 1)
             curr = prev.next
-            if pos === self.nodeCount + 1:
+            if pos == self.nodeCount + 1:
                 self.tail = None
                 prev.next = None
             else:
@@ -207,7 +214,7 @@ node 를 삭제하고
         else:
             if pos == 1:
                 curr = self.head
-                self.head = slef.head.next
+                self.head = self.head.next
             if pos == self.nodeCount:
                 curr = self.tail
                 prev = self.getAt(pos - 1)
@@ -221,6 +228,11 @@ node 를 삭제하고
         self.nodeCount -= 1
         return curr.data
 ```
+
+- 연결 리스트 원소 삭제의 복잡도
+  - 맨 앞에서 삭제하는 경우: O(1)
+  - 중간에서 삭제하는 경우: O(n)
+  - 맨 끝에서 삭제하는 경우: O(n)
 
 ### 연결 리스트 연산 - 두 리스트 연결
 
