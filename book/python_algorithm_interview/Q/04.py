@@ -25,6 +25,8 @@ def most_common_word(s: str, banned: List[str]) -> str:
             else:
                 counter[item] = 1
 
+    # 아래 방법으로는 제대로 카운트 되지 않음
+    # return max(counter, key=counter.get) 와 같은 방법으로 카운트 해야 함.
     max_idx = max(counter.values())
     result = ''
 
