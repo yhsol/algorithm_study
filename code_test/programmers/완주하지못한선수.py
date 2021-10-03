@@ -1,3 +1,7 @@
+from typing import List
+import collections
+
+
 def solution(participant, completion):
     answer = ''
     part_dict = {}
@@ -41,6 +45,13 @@ def solution2(participant, completion):
             return i
 
 
-participant = ["leo", "kiki", "eden"]
+def solution3(participant: List[int], completion: List[int]):
+    participant_dict = collections.Counter(participant)
+    completion_dict = collections.Counter(completion)
+    answer = participant_dict - completion_dict
+    return list(answer.keys())[0]
+
+
+participant = ["kiki", "kiki", "eden"]
 completion = ["eden", "kiki"]
-print(solution(participant, completion))
+print(solution3(participant, completion))
