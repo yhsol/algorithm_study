@@ -9,27 +9,32 @@
 
 from typing import List
 
+STATUS = {
+    "Leave": "Leave",
+    "Change": "Change",
+    "Enter": "Enter"
+}
+
+ACTION_BY_STATUS = {
+    "Leave": "님이 나갔습니다.",
+    "Enter": "님이 들어왔습니다."
+}
+
 
 def solution(record: List[str]) -> List[str]:
     answer = []
     uid_dict = {}  # dict = {[uid]: uid: str, name: str}
-
-    status_dict = {
-        "Enter": "님이 들어왔습니다.",
-        "Leave": "님이 나갔습니다."
-    }
 
     # 전체 반복하면서 이름 설정
     for item in record:
         splited = item.split(" ")
         status = splited[0]
 
-        if status != 'Leave:':
+        if status != STATUS["Leave"]:
             uid = splited[1]
             name = splited[2] if len(splited) > 2 else ''
 
             uid_dict[uid] = {
-                "uid": uid,
                 "name": name
             }
 
@@ -39,8 +44,8 @@ def solution(record: List[str]) -> List[str]:
         status = splited[0]
         uid = splited[1]
 
-        if status != 'Change' and status_dict[status] and uid in uid_dict:
-            answer.append(uid_dict[uid]['name'] + status_dict[status])
+        if status != STATUS["Change"]:
+            answer.append(uid_dict[uid]['name'] + ACTION_BY_STATUS[status])
 
     return answer
 
