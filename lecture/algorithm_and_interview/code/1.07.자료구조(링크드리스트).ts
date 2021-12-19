@@ -123,10 +123,138 @@ interface Post {
 
 const linkedList = new LinkedList<Post>();
 
-linkedList.insertAtEnd({ title: "Post A" });
-linkedList.insertAtEnd({ title: "Post B" });
-linkedList.insertInBegin({ title: "Post C" });
-linkedList.insertInBegin({ title: "Post D" });
+// linkedList.insertAtEnd({ title: "Post A" });
+// linkedList.insertAtEnd({ title: "Post B" });
+// linkedList.insertInBegin({ title: "Post C" });
+// linkedList.insertInBegin({ title: "Post D" });
 
-console.log(linkedList.traverse());
-console.log(linkedList.search(({ title }) => title === "Post A"));
+// console.log(linkedList.traverse());
+// console.log(linkedList.search(({ title }) => title === "Post A"));
+
+// interface DoublyLinkedListNode<T> {
+//   data: T;
+//   next: DoublyLinkedListNode<T> | null;
+//   prev: DoublyLinkedListNode<T> | null;
+// }
+
+interface IDoublyLinkedList<T> {
+  add(data: T): void;
+  dequeue(): T | undefined;
+  pop(): T | undefined;
+  values(): Generator<any, void, unknown>;
+}
+
+export class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
+  private head: Node<T> | null = null;
+  private tail: Node<T> | null = null;
+
+  private size: number = 0;
+
+  public length(): number {
+    return this.size;
+  }
+
+  public isEmpty(): boolean {
+    return this.size <= 0;
+  }
+
+  public contains(data: T): boolean {
+    if (this.isEmpty()) return false;
+
+    let temp = this.head;
+    while (temp != null) {
+      if (temp.data === data) return true;
+      temp = temp.next;
+    }
+    return false;
+  }
+
+  public get(index: number): T {
+    if (index > this.size || this.isEmpty())
+      throw new RangeError("Index out of range.");
+
+    if (index > this.size / 2) {
+      let i = this.size - 1 - index;
+      let temp = this.tail;
+      while (i > 0) {
+        temp = temp.prev;
+        i--;
+      }
+      return temp.data;
+    } else {
+      let temp = this.head;
+      for (let i = 0; i < index; i++) {
+        temp = temp.next;
+      }
+      return temp.data;
+    }
+  }
+
+  public getFirst(): T | null {
+    if (this.head) return this.head.data;
+    return null;
+  }
+
+  public getLast(): T | null {
+    if (this.tail) return this.tail.data;
+    return null;
+  }
+
+  public add(data: T) {
+    const node: Node<T> = {
+      data,
+      next: null,
+      prev: null,
+    };
+
+    if (!this.head) {
+      this.head = node;
+    }
+
+    if (this.tail) {
+      this.tail.next = node;
+      node.prev = this.tail;
+    }
+
+    this.tail = node;
+    this.size++;
+  }
+
+  public dequeue(): T | undefined {
+    if (this.head) {
+      const data = this.head.data;
+      this.head = this.head.next;
+      if (!this.head) {
+        this.tail = null;
+      } else {
+        this.head.prev = null;
+      }
+      return data;
+    }
+  }
+
+  public pop(): T | undefined {
+    if (this.tail) {
+      const data = this.tail.data;
+      this.tail = this.tail.prev;
+      if (!this.tail) {
+        this.head = null;
+      } else {
+        this.tail.next = null;
+      }
+      return data;
+    }
+  }
+
+  public *values() {
+    let current = this.head;
+    while (current) {
+      yield current.data;
+      current = current.next;
+    }
+  }
+}
+
+export function addTwo(data: number) {
+  return data + 2;
+}
