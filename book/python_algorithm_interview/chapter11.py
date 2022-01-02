@@ -2,9 +2,6 @@ import heapq
 import random
 import collections
 from typing import List
-<< << << < HEAD
-== == == =
->>>>>> > 339d15003a9bb7aa2f4bd1315c25c5e88c4a1d0c
 
 
 def birthdayProblem():
