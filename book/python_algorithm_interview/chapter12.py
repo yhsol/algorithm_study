@@ -214,12 +214,46 @@ def combine_book_itertools(n: int, k: int) -> List[List[int]]:
 
 
 def sumOfCombine(candidates: List[int], target: int) -> List[int]:
-    restuls = []
+    result = []
+
+    def dfs(csum, index, path):
+        if csum < 0:
+            return
+        if csum == 0:
+            result.append(path)
+            return
+
+        for i in range(index, len(candidates)):
+            dfs(csum - candidates[i], i, path + [candidates[i]])
+
+    dfs(target, 0, [])
+    return result
+
+
+def permute_itertools(nums: List[int]) -> List[List[int]]:
+    return list(itertools.permutations(nums))
+
+
+def combine_itertools(n: int, k: int) -> List[List[int]]:
+    return list(itertools.combinations(range(1, n+1), k))
+
+
+def subsets(nums: List[int]) -> List[List[int]]:
+    result = []
+
+    def dfs(index, path):
+        result.append(path)
+
+        for i in range(index, len(nums)):
+            dfs(i+1, path + [nums[i]])
+
+    dfs(0, [])
+    return result
 
 
 def main():
     start = time.time()
-    results = permute([1, 2, 3])
+    results = subsets([1, 2, 3])
     print('results: ', results)
     print('time: ', start - time.time())
 
