@@ -1,4 +1,4 @@
-function solution(params: string[]): string[] {
+export function solution(params: string[]): string[] {
   //   return params.reverse();
   let left = 0;
   let right = params.length - 1;
@@ -13,5 +13,3 @@ function solution(params: string[]): string[] {
 }
 
 console.log(solution("hello".split("")));
-
-export {};

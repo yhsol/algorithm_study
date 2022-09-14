@@ -1,4 +1,4 @@
-function solution(s: string) {
+export function solution(s: string) {
   // let filtered = s.split('').filter(item => /^[a-zA-Z0-9]+$/.test(item)).map(item => item.toLowerCase())
 
   let filtered = s
@@ -21,5 +21,3 @@ function solution(s: string) {
 }
 
 console.log(solution("A man, a plan, a canal: Panama"));
-
-export {};
