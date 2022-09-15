@@ -1,22 +1,23 @@
 from typing import List
 
-# 뭔가 더 단축할 수 있을 것 같은데
 class Solution:
     def trap(self, height: List[int]) -> int:
-        result = 0
-        maxL, maxR = height[0], height[len(height) - 1]
-        maxLIndex, maxRIndex = 0, len(height) - 1
+        if not height: return 0
 
-        while maxLIndex < maxRIndex:
+        result = 0
+        left, right = 0, len(height) - 1
+        maxL, maxR = height[left], height[right]
+
+        while left < right:
             value = 0
             if maxL < maxR:
-                maxLIndex += 1
-                value = maxL - height[maxLIndex]
-                maxL = max(maxL, height[maxLIndex])
+                left += 1
+                value = maxL - height[left]
+                maxL = max(maxL, height[left])
             else:
-                maxRIndex -= 1
-                value = maxR - height[maxRIndex]
-                maxR = max(maxR, height[maxRIndex])
+                right -= 1
+                value = maxR - height[right]
+                maxR = max(maxR, height[right])
             
             if value > 0:
                 result += value
