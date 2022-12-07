@@ -1,14 +1,15 @@
-function arraypartition(nums: number[]): number {
-  nums.sort();
-  let result = 0;
+function arrayPairSum(nums: number[]): number {
+  let res = 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (i % 2 === 0) {
-      result += nums[i];
-    }
-  }
+  nums.sort((a, b) => a - b);
 
-  return result;
+  nums.forEach((v, i) => {
+    if (i % 2 === 0) res += v;
+  });
+
+  return res;
 }
 
-console.log(arraypartition([1, 4, 3, 2]));
+const nums = [1, 4, 3, 2];
+console.log(arrayPairSum(nums));
+//=> 4
