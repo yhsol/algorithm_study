@@ -18,6 +18,9 @@
 // 저점과 현재값과의 차이.
 // 앞에서부터 순회해 나가면서 저점 기록(min), 현재값과 비교(curr), 그 비교값은 max 와 비교하여 update.
 
+// 알고리즘.
+// 지나온 값들 중의 최저 값과 현재 값의 차이를 기록해가면서 그 차이가 가장 클 때의 수를 리턴.
+
 function maxProfit(prices: number[]): number {
   let res = 0;
   let min = Infinity;
