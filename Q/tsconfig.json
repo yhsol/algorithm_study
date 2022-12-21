@@ -1,9 +1,11 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
+      "emitDecoratorMetadata": true,
       "module": "commonjs",
       "target": "es2018",
       "rootDir": "./",
+      "outDir": "ts-built",
       "sourceMap": true,
       "experimentalDecorators": true,
       "moduleResolution": "node",
