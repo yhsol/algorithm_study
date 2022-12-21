@@ -36,11 +36,11 @@ const readLines = async (filePath: string) => {
   });
 };
 
-const 승부결과 = (a: Opponent, b: Me) => {
-  const lost = 0;
-  const draw = 3;
-  const win = 6;
+const lost = 0;
+const draw = 3;
+const win = 6;
 
+const 승부결과 = (a: Opponent, b: Me) => {
   if (a === "A") {
     if (b === "X") return draw;
     if (b === "Y") return win;
@@ -62,7 +62,7 @@ const 승부결과 = (a: Opponent, b: Me) => {
   return 0;
 };
 
-const 모양에따른점수 = (a: Me) => {
+const 모양에따른점수 = (a?: Me) => {
   if (a === "X") return 1;
   if (a === "Y") return 2;
   if (a === "Z") return 3;
@@ -92,5 +92,68 @@ const rockPaperScissors = async () => {
 
 (async () => {
   const res = await rockPaperScissors();
-  console.log("🚀 turbo : res", res);
+  console.log("🚀 turbo : rockPaperScissors : res", res);
+})();
+
+const makeLose = (opponent: Opponent): Me | undefined => {
+  if (opponent === "A") return "Z";
+  if (opponent === "B") return "X";
+  if (opponent === "C") return "Y";
+};
+const makeDraw = (opponent: Opponent): Me | undefined => {
+  if (opponent === "A") return "X";
+  if (opponent === "B") return "Y";
+  if (opponent === "C") return "Z";
+};
+const makeWin = (opponent: Opponent): Me | undefined => {
+  if (opponent === "A") return "Y";
+  if (opponent === "B") return "Z";
+  if (opponent === "C") return "X";
+};
+
+const 새로운룰경기점수 = (me: Me) => {
+  if (me === "X") return lost;
+  if (me === "Y") return draw;
+  return win;
+};
+
+const rockPaperScissors2 = async () => {
+  let res = 0;
+
+  try {
+    const lines = (await readLines("./puzzle-input.txt")) as string[];
+
+    lines.forEach((line) => {
+      const opponent = line.split(" ")[0] as Opponent;
+      const me = line.split(" ")[1] as Me;
+
+      const 경기점수 = 새로운룰경기점수(me);
+      let shape: Me | undefined = undefined;
+
+      if (me === "X") {
+        shape = makeLose(opponent);
+      }
+
+      if (me === "Y") {
+        shape = makeDraw(opponent);
+      }
+
+      if (me === "Z") {
+        shape = makeWin(opponent);
+      }
+
+      const 모양점수 = 모양에따른점수(shape);
+
+      res += 경기점수 + 모양점수;
+    });
+  } catch (error) {
+    console.error("error", error);
+  }
+
+  return res;
+};
+
+(async () => {
+  const res = await rockPaperScissors2();
+  console.log("🚀 turbo : rockPaperScissors2 : res", res);
 })();

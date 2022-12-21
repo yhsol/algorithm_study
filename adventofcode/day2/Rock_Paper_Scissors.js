@@ -65,10 +65,10 @@ var readLines = function (filePath) { return __awaiter(void 0, void 0, void 0, f
             })];
     });
 }); };
+var lost = 0;
+var draw = 3;
+var win = 6;
 var 승부결과 = function (a, b) {
-    var lost = 0;
-    var draw = 3;
-    var win = 6;
     if (a === "A") {
         if (b === "X")
             return draw;
@@ -139,7 +139,88 @@ var rockPaperScissors = function () { return __awaiter(void 0, void 0, void 0, f
             case 0: return [4 /*yield*/, rockPaperScissors()];
             case 1:
                 res = _a.sent();
-                console.log("🚀 turbo : res", res);
+                console.log("🚀 turbo : rockPaperScissors : res", res);
+                return [2 /*return*/];
+        }
+    });
+}); })();
+var makeLose = function (opponent) {
+    if (opponent === "A")
+        return "Z";
+    if (opponent === "B")
+        return "X";
+    if (opponent === "C")
+        return "Y";
+};
+var makeDraw = function (opponent) {
+    if (opponent === "A")
+        return "X";
+    if (opponent === "B")
+        return "Y";
+    if (opponent === "C")
+        return "Z";
+};
+var makeWin = function (opponent) {
+    if (opponent === "A")
+        return "Y";
+    if (opponent === "B")
+        return "Z";
+    if (opponent === "C")
+        return "X";
+};
+var 새로운룰경기점수 = function (me) {
+    if (me === "X")
+        return lost;
+    if (me === "Y")
+        return draw;
+    return win;
+};
+var rockPaperScissors2 = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res, lines, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                res = 0;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, readLines("./puzzle-input.txt")];
+            case 2:
+                lines = (_a.sent());
+                lines.forEach(function (line) {
+                    var opponent = line.split(" ")[0];
+                    var me = line.split(" ")[1];
+                    var 경기점수 = 새로운룰경기점수(me);
+                    var shape = undefined;
+                    if (me === "X") {
+                        shape = makeLose(opponent);
+                    }
+                    if (me === "Y") {
+                        shape = makeDraw(opponent);
+                    }
+                    if (me === "Z") {
+                        shape = makeWin(opponent);
+                    }
+                    var 모양점수 = 모양에따른점수(shape);
+                    res += 경기점수 + 모양점수;
+                });
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _a.sent();
+                console.error("error", error_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/, res];
+        }
+    });
+}); };
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, rockPaperScissors2()];
+            case 1:
+                res = _a.sent();
+                console.log("🚀 turbo : rockPaperScissors2 : res", res);
                 return [2 /*return*/];
         }
     });
