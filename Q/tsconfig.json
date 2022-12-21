@@ -1,0 +1,24 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es2018",
+      "rootDir": "./",
+      "sourceMap": true,
+      "experimentalDecorators": true,
+      "moduleResolution": "node",
+      "typeRoots": ["node_modules/@types", "@types"],
+      "importHelpers": true,
+      "removeComments": true,
+      "strict": true,
+      "strictPropertyInitialization": false,
+      "jsx": "react-jsx",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "baseUrl": ".",
+    },
+    "exclude": ["node_modules", "script", ".webpack"]
+  }
+  
