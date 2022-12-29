@@ -23,7 +23,8 @@ class ListNode {
 function mergeTwoLists2(list1: ListNode | null, list2: ListNode | null) {
   let dummy = new ListNode();
   let [node1, node2] = [list1, list2];
-  let curr = dummy;
+  // curr 보다 tail 로 이름을 짓는게 이해하기 더 좋구만.
+  let tail = dummy;
 
   // node1 과 node2 를 비교.
   // node1 이 더 작으면 output 과 연결된 curr 의 next 를 node1 으로 연결.
@@ -31,23 +32,23 @@ function mergeTwoLists2(list1: ListNode | null, list2: ListNode | null) {
   // curr 노드는 최신의 상태로 업데이트 해줘야함. curr = curr.next; 로 이동.
   while (node1 && node2) {
     if (node1.val < node2.val) {
-      curr.next = node1;
+      tail.next = node1;
       node1 = node1.next;
-      curr = curr.next;
     } else {
-      curr.next = node2;
+      tail.next = node2;
       node2 = node2.next;
-      curr = curr.next;
     }
+    tail = tail.next;
   }
 
   // 남은 노드들은 그대로 다 붙이기.
   if (node1) {
-    curr.next = node1;
+    // node1 자체가 정렬된 리스트이기 때문에 그대로 연결해버리면 됨.
+    tail.next = node1;
   }
 
   if (node2) {
-    curr.next = node2;
+    tail.next = node2;
   }
 
   // while (node1) {
