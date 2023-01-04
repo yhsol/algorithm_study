@@ -11,7 +11,7 @@
  * output 노드를 만들기 위해서 dummy 노드 생성.
  */
 
-class ListNode {
+export class ListNode {
   val: number;
   next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
@@ -20,7 +20,7 @@ class ListNode {
   }
 }
 
-function mergeTwoLists2(list1: ListNode | null, list2: ListNode | null) {
+export function mergeTwoLists2(list1: ListNode | null, list2: ListNode | null) {
   let dummy = new ListNode();
   let [node1, node2] = [list1, list2];
   // curr 보다 tail 로 이름을 짓는게 이해하기 더 좋구만.
