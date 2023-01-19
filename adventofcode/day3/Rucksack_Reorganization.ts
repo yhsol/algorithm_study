@@ -15,7 +15,7 @@ const getPriority = (item: string) => {
   return 0;
 };
 
-const readLines = async (filePath) => {
+const readLines = async (filePath: string) => {
   const lines: string[] = [];
 
   return new Promise((resolve, reject) => {
@@ -66,7 +66,36 @@ const rucksackReorganizationPart1 = async () => {
   return res;
 };
 
+const rucksackReorganizationPart2 = async () => {
+  let res = 0;
+  const lines = (await readLines("./puzzle_input.txt")) as string[];
+
+  // groups 에 three 별로 객체로 묶어서 넣기
+  let groups: string[][] = [];
+  let temp: string[] = [];
+  for (let [i, v] of lines.entries()) {
+    temp.push(v);
+    if (i !== 0 && (i + 1) % 3 === 0) {
+      groups.push(temp);
+      temp = [];
+    }
+  }
+
+  for (let group of groups) {
+    const [a, b, c] = group;
+
+    for (let t of a) {
+      if (b.includes(t) && c.includes(t)) {
+        res += getPriority(t);
+        break;
+      }
+    }
+  }
+
+  return res;
+};
+
 (async () => {
-  const res = await rucksackReorganizationPart1();
+  const res = await rucksackReorganizationPart2();
   console.log("res: ", res);
 })();

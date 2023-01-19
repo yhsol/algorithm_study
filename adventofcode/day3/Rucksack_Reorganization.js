@@ -109,11 +109,45 @@ var rucksackReorganizationPart1 = function () { return __awaiter(void 0, void 0,
         }
     });
 }); };
+var rucksackReorganizationPart2 = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res, lines, groups, temp, _i, _a, _b, i, v, _c, groups_1, group, a, b, c, _d, a_1, t;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
+            case 0:
+                res = 0;
+                return [4 /*yield*/, readLines("./puzzle_input.txt")];
+            case 1:
+                lines = (_e.sent());
+                groups = [];
+                temp = [];
+                for (_i = 0, _a = lines.entries(); _i < _a.length; _i++) {
+                    _b = _a[_i], i = _b[0], v = _b[1];
+                    temp.push(v);
+                    if (i !== 0 && (i + 1) % 3 === 0) {
+                        groups.push(temp);
+                        temp = [];
+                    }
+                }
+                for (_c = 0, groups_1 = groups; _c < groups_1.length; _c++) {
+                    group = groups_1[_c];
+                    a = group[0], b = group[1], c = group[2];
+                    for (_d = 0, a_1 = a; _d < a_1.length; _d++) {
+                        t = a_1[_d];
+                        if (b.includes(t) && c.includes(t)) {
+                            res += getPriority(t);
+                            break;
+                        }
+                    }
+                }
+                return [2 /*return*/, res];
+        }
+    });
+}); };
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var res;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, rucksackReorganizationPart1()];
+            case 0: return [4 /*yield*/, rucksackReorganizationPart2()];
             case 1:
                 res = _a.sent();
                 console.log("res: ", res);
