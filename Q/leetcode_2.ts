@@ -89,6 +89,31 @@ export function addTwoNumbersWithNeedCode(
   return dummy.next;
 }
 
+const solution = () => {
+  const reverseList = (head: ListNode | null) => {
+    let node = head;
+    let prev = null;
+
+    while (node) {
+      const next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+
+    return prev;
+  };
+
+  const toList = (node: ListNode | null) => {
+    const list = [];
+    while (node) {
+      list.push(node.val);
+      node = node.next;
+    }
+    return list;
+  };
+};
+
 let l1 = new ListNode(2); // [2,4,3]
 l1.next = new ListNode(4);
 l1.next.next = new ListNode(3);
