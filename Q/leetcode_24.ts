@@ -20,16 +20,36 @@ class ListNode {
 }
 
 function swapPairs(head: ListNode | null): ListNode | null {
-  let dummy = new ListNode();
-  let curr = dummy;
+  let dummy = new ListNode(0, head);
+  let prev = dummy;
+  let curr = head;
 
-  while (head && head.next) {
-    curr = head.next;
-    curr.next = head;
-    head = head.next.next;
+  while (curr && curr.next) {
+    let nextPair = curr.next.next;
+    let second = curr.next;
+
+    second.next = curr;
+    curr.next = nextPair;
+    prev.next = second;
+
+    prev = curr;
+    curr = nextPair;
   }
 
-  return dummy;
+  return dummy.next;
+}
+
+function value만변경(head: ListNode | null): ListNode | null {
+  let curr = head;
+
+  while (curr && curr.next) {
+    if (curr.val !== null && curr.next.val !== null) {
+      [curr.val, curr.next.val] = [curr.next.val, curr.val];
+      curr = curr.next.next;
+    }
+  }
+
+  return head;
 }
 
 // node 1->2->3->4
