@@ -2,23 +2,16 @@ const algo = (temperatures: number[]) => {
   const stack: number[] = [];
   const res: number[] = [];
 
-  temperatures.forEach((v, i) => {
-    console.log(v, temperatures[stack.length - 1]);
-
-    while (stack.length && v > temperatures[stack.length - 1]) {
-      const last = stack.pop();
-      if (last !== undefined) {
-        console.log("last, i - last: ", last, i - last);
-        res[last] = i - last;
+  for (let i = 0; i < temperatures.length; i++) {
+    for (let j = i + 1; j < temperatures.length; j++) {
+      if (temperatures[i] < temperatures[j]) {
+        res.push(j - i);
+        break;
       }
     }
-    stack.push(i);
-  });
 
-  while (stack.length) {
-    const last = stack.pop();
-    if (last !== undefined) {
-      res[last] = 0;
+    if (res.length === i) {
+      res.push(0);
     }
   }
 
