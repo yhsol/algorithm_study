@@ -68,6 +68,7 @@ class MyCircularQueue {
   };
 
   isEmpty = () => {
+    // this.left.next 가 직접적으로 this.right 를 가리킨다는건 그 사이에 아무것도 없다는 것.
     return this.left?.next === this.right;
   };
 
