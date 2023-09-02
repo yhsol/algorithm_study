@@ -1,77 +1,79 @@
-class MyCircularQueue {
-  private queue: (number | null)[] = [];
-  private size: number;
-  private p1: number = 0;
-  private p2: number = 0;
-
-  constructor(k: number) {
-    this.queue = new Array(k).fill(null);
-    this.size = k;
-  }
-
-  enQueue(value: number): boolean {
-    if (this.queue[this.p2] === null) {
-      this.queue[this.p2] = value;
-      this.p2 = (this.p2 + 1) % this.size;
-      return true;
-    } else {
-      return false;
-    }
-
-    // if (this.isFull()) {
-    //   return false;
-    // }
-
-    // this.queue.push(value);
-    // return true;
-  }
-
-  deQueue(): boolean {
-    if (this.queue[this.p1] === null) {
-      return false;
-    } else {
-      this.queue[this.p1] = null;
-      this.p1 = (this.p1 + 1) % this.size;
-      return true;
-    }
-
-    // if (this.isEmpty()) {
-    //   return false;
-    // }
-
-    // this.queue.shift();
-    // return true;
-  }
-
-  Front(): number {
-    return this.queue[this.p1] === null ? -1 : this.queue[this.p1]!;
-    // return this.queue[0] ?? -1;
-  }
-
-  Rear(): number {
-    const last = this.p2 <= 0 ? this.size - 1 : this.p2 - 1;
-    return this.queue[last] === null ? -1 : this.queue[last]!;
-    // return this.queue[this.queue.length - 1] ?? -1;
-  }
-
-  isEmpty(): boolean {
-    return this.p1 === this.p2 && this.queue[this.p1] === null;
-    // return this.queue.length === 0;
-  }
-
-  isFull(): boolean {
-    return this.p1 === this.p2 && this.queue[this.p1] !== null;
-    // return this.queue.length === this.size;
+class ListNode622 {
+  constructor(
+    public val: number,
+    public next: ListNode622 | null = null,
+    public prev: ListNode622 | null = null
+  ) {
+    this.val = val;
+    this.next = next;
+    this.prev = prev;
   }
 }
 
-/**
- * Your MyCircularQueue object will be instantiated and called as such:
- * var obj = new MyCircularQueue(k)
- * var param_1 = obj.enQueue(value)
- * var param_2 = obj.deQueue()
- * var param_3 = obj.Front()
- * var param_4 = obj.Rear()
- * var param_5 = obj.isEmpty()
- * var param_6 = obj.isFull()
- */
+class MyCircularQueue {
+  private left: ListNode622 | null = null;
+  private right: ListNode622 | null = null;
+  private space: number = 0;
+
+  constructor(k: number) {
+    this.left = new ListNode622(0, null, null);
+    this.right = new ListNode622(0, null, this.left);
+    this.left.next = this.right;
+    this.space = k;
+  }
+
+  enQueue = (value: number) => {
+    if (this.isFull()) {
+      return false;
+    }
+
+    const cur = new ListNode622(value, this.right, this.right?.prev);
+    if (this.right?.prev?.next) {
+      this.right.prev.next = cur;
+      this.right.prev = cur;
+      this.space -= 1;
+    }
+
+    return true;
+  };
+
+  deQueue = () => {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    if (this.left?.next?.next) {
+      this.left.next = this.left.next.next;
+      this.left.next.prev = this.left;
+      this.space += 1;
+    }
+
+    return true;
+  };
+
+  Front = () => {
+    if (this.isEmpty()) {
+      return -1;
+    }
+
+    return this.left?.next?.val;
+  };
+
+  Rear = () => {
+    if (this.isEmpty()) {
+      return -1;
+    }
+
+    return this.right?.prev?.val;
+  };
+
+  isEmpty = () => {
+    return this.left?.next === this.right;
+  };
+
+  isFull = () => {
+    return this.space === 0;
+  };
+}
+
+export {};
