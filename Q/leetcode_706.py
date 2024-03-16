@@ -13,7 +13,6 @@ class MyHashMap:
     def __init__(self):
         self.size = 1000
         self.table = collections.defaultdict(ListNode)
-        self.hashMap = [-1] * 1000000
 
     def put(self, key: int, value: int) -> None:
         index = key % self.size
@@ -33,6 +32,7 @@ class MyHashMap:
             # 종료 조건은 2가지.
             # 첫 번째는 이미 키가 존재할 경우 값을 업데이트하고 빠져나가는 경우.
             # 두 번째는 p.next is None이라면 아무것도 하지 않고 루프를 빠져나가는 경우.
+            p.next = ListNode(key, value)
 
     def get(self, key: int) -> int:
         index = key % self.size
