@@ -1,27 +1,33 @@
-// leetcode 125. Valid Palindrome
-const s = "A man, a plan, a canal: Panama";
+const S = "A man, a plan, a canal: Panama";
 
 function isPalindrome(s: string): boolean {
-  s = s.toLowerCase();
-  let cleaned: string = "";
-  for (let char of s) {
-    if ((char >= "a" && char <= "z") || (char >= "0" && char <= "9")) {
-      cleaned += char;
-    }
+  if (s.trim() === "") {
+    return true;
   }
 
+  const re = /[^a-zA-Z0-9]/g;
+  const filtered = s.replace(re, "").toLowerCase();
+
   let left = 0;
-  let right = cleaned.length - 1;
+  let right = filtered.length - 1;
 
   while (left < right) {
-    if (cleaned[left] !== cleaned[right]) {
+    if (filtered[left] === filtered[right]) {
+      left++;
+      right--;
+    } else {
       return false;
     }
-    left++;
-    right--;
   }
 
   return true;
 }
 
-console.log(isPalindrome(s));
+console.log(isPalindrome(S));
+
+function isPalindrome2(s: string): boolean {
+  const re = /[^a-zA-Z0-9]/g;
+  const filtered = s.replace(re, "").toLowerCase();
+  const reveresed = filtered.split("").reverse().join("");
+  return filtered === reveresed;
+}
